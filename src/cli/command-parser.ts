@@ -17,5 +17,3 @@ export class CommandParser {
     return parsedCommand;
   }
 }
-
-//TODO: Добавить менеджеру метод processCommand, ответственный на исполнение команд
