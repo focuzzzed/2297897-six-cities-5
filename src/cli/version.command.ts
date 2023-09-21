@@ -33,7 +33,7 @@ export class VersionCommand implements Command {
     return '--version';
   }
 
-  public async execute(): Promise<void> {
+  public async execute(..._parameters: string[]): Promise<void> {
     try {
       const version = this.readVersion();
       console.info(version);
