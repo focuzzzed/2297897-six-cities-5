@@ -1,0 +1,127 @@
+{
+  "api:": {
+    "names": [
+      "Majestic Mountain Retreat",
+      "Enchanted Forest Cottage",
+      "Sunny Seaside Sanctuary",
+      "Serene Lakeside Haven",
+      "Whimsical Waterfall Villa",
+      "Tranquil Garden Hideaway",
+      "Historic Tower Overlook",
+      "Wisteria Vineyard Estate",
+      "Wind-Kissed Ocean Loft",
+      "Breezy Hilltop Castle"
+    ],
+    "descriptions": [
+      "Experience the hidden oasis nestled in the heart of a dense jungle, where crystal-clear springs invite you to dive into serenity.",
+      "Unwind in a cozy log cabin, surrounded by pine-scented air and picturesque mountains, offering the perfect weekend getaway.",
+      "Discover a bustling food market filled with aromatic spices, exotic dishes, and vibrant colors that trigger a culinary adventure.",
+      "Set your eyes on the endless horizon of a pristine white sand beach, where azure waves gracefully kiss the shore.",
+      "Embark on a moonlit hike through a mystic forest, where ancient trees dance with shadows and stars guide your way home.",
+      "Cherish an enchanting Italian vineyard tour, where sunshine, rolling hills, and the finest wines create cherished memories.",
+      "Admire the futuristic skyline of a sleek metropolis, where architectural marvels narrate stories of ambition and progress."
+    ],
+    "previewImages": [
+      "paths/preview/previewImage-1.jpg",
+      "paths/preview/previewImage-2.jpg",
+      "paths/preview/previewImage-3.jpg",
+      "paths/preview/previewImage-4.jpg",
+      "paths/preview/previewImage-5.jpg",
+      "paths/preview/previewImage-6.jpg"
+    ],
+    "placeImages": [
+      "paths/placeImages/placeImage-1.jpg",
+      "paths/placeImages/placeImage-2.jpg",
+      "paths/placeImages/placeImage-3.jpg",
+      "paths/placeImages/placeImage-4.jpg",
+      "paths/placeImages/placeImage-5.jpg",
+      "paths/placeImages/placeImage-6.jpg",
+      "paths/placeImages/placeImage-7.jpg",
+      "paths/placeImages/placeImage-8.jpg",
+      "paths/placeImages/placeImage-9.jpg",
+      "paths/placeImages/placeImage-10.jpg",
+      "paths/placeImages/placeImage-11.jpg"
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "placesTypes": [
+      "Apartment",
+      "House",
+      "Room",
+      "Hotel"
+    ],
+    "conveniences": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "userNames": [
+      "Arthur",
+      "Joker",
+      "Bender",
+      "Beetlejuice",
+      "Ratchet",
+      "Emmet",
+      "Sub-Zero"
+
+    ],
+    "emails": [
+      "bestsword@circletable.com",
+      "batmandestroyer@gotham.com",
+      "johndoe@example.com",
+      "crane@light.com",
+      "paradox@interactive.com",
+      "lego@bricks.com",
+      "saints@volution.com"
+    ],
+    "avatars": [
+      "paths/avatars/avatar-1.jpg",
+      "paths/avatars/avatar-2.jpg",
+      "paths/avatars/avatar-3.jpg",
+      "paths/avatars/avatar-4.jpg",
+      "paths/avatars/avatar-5.jpg",
+      "paths/avatars/avatar-6.jpg",
+      "paths/avatars/avatar-7.jpg"
+    ],
+    "passwords": [
+      "q4R!w8mTz$rn",
+      "B@71xac$GyUk",
+      "E4fWj%!rM5Q&",
+      "pT!72#K4z6Up",
+      "7cN*Xhb1$uS5",
+      "mQ@38Xg&jEfr",
+      "H&2V$5zY1#Rp",
+      "9StJ%zr@QY63",
+      "F7!Dn#4$Bgv1",
+      "k2vt%Y6RZ!54"
+    ],
+    "userTypes": [
+      "обычный",
+      "pro"
+    ],
+    "coordinates": [
+      "48.85661",
+      "50.938361",
+      "50.846557",
+      "52.370216",
+      "53.550341",
+      "51.225402",
+      "2.351499",
+      "6.959974",
+      "4.351697",
+      "4.895168",
+      "10.000654",
+      "6.776314"
+    ]
+  }
+}

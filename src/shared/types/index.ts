@@ -4,3 +4,4 @@ export * from './cities.enum.js';
 export * from './places-types.enum.js';
 export * from './user.type.js';
 export * from './user-types.enum.js';
+export * from './mock-server-data.types.js';

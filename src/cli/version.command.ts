@@ -24,7 +24,7 @@ export class VersionCommand implements Command {
     const jsonFile: string = readFileSync(resolve(this.filePath), 'utf-8');
     const parsedContent = JSON.parse(jsonFile);
     if (!isPackageJSONConfig(parsedContent)){
-      throw new Error('Failed to read version...');
+      throw new Error('Failed to parse JSON content...');
     }
     return parsedContent.version;
   }
