@@ -1,5 +1,5 @@
 import {Command} from './command.interface.js';
-import {TSVFilerReader} from '../shared/libs/file-reader/tsv-file-reader.js';
+import {TSVFileReader} from '../shared/libs/file-reader/index.js';
 import chalk from 'chalk';
 
 export class ImportCommand implements Command {
@@ -9,7 +9,7 @@ export class ImportCommand implements Command {
 
   public execute(...parameters: string[]) {
     const [filename] = parameters;
-    const fileReader = new TSVFilerReader(filename.trim());
+    const fileReader = new TSVFileReader(filename.trim());
 
     try{
       fileReader.read();
