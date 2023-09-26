@@ -1,15 +1,11 @@
-import {Cities} from './cities.enum.js';
-import {PlacesTypes} from './places-types.enum.js';
-import {Conveniences} from './conveniences.enum.js';
-
 export type MockServerData = {
   names: string[];
   descriptions: string[];
   previewImages: string[];
   placeImages: string[];
-  cities: Cities[];
-  placesTypes: PlacesTypes[];
-  conveniences: Conveniences[];
+  cities: string[];
+  placesTypes: string[];
+  conveniences: string[];
   usernames: string[];
   emails: string[];
   avatars: string[];

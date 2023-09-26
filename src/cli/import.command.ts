@@ -3,11 +3,13 @@ import {TSVFileReader} from '../shared/libs/file-reader/index.js';
 import chalk from 'chalk';
 
 export class ImportCommand implements Command {
+  private readonly name = '--import';
+
   public getName(): string {
-    return '--import';
+    return this.name;
   }
 
-  public execute(...parameters: string[]) {
+  public execute(...parameters: string[]): void {
     const [filename] = parameters;
     const fileReader = new TSVFileReader(filename.trim());
 
