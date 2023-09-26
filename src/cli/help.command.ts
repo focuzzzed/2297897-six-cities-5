@@ -2,8 +2,10 @@ import {Command} from './command.interface.js';
 import chalk from 'chalk';
 
 export class HelpCommand implements Command {
+  private readonly name = '--help';
+
   public getName(): string {
-    return '--help';
+    return this.name;
   }
 
   public async execute(..._parameters: string[]): Promise<void> {
@@ -12,10 +14,10 @@ export class HelpCommand implements Command {
         ${chalk.blue('Пример:')}
             cli.js --<command> [--arguments]
         ${chalk.blue('Команды:')}
-            --version:                   ${chalk.green('# выводит номер версии')}
-            --help:                      ${chalk.green('# печатает этот текст')}
-            --import <path>:             ${chalk.green('# импортирует данные из TSV')}
-            --generate <n> <path> <url>  ${chalk.green('# генерирует произвольное количество тестовых данных')}
+            --version:                   ${chalk.green('# выводит версию проекта в семантическом версионировании')}
+            --help:                      ${chalk.green('# выводит информацию по доступным командам')}
+            --import <path>:             ${chalk.green('# импортирует данные из TSV файла по указанному пути')}
+            --generate <n> <path> <url>  ${chalk.green('# генерирует указанное количество тестовых данных по указанному пути с указанного url сервера')}
     `);
   }
 }

@@ -5,10 +5,11 @@ import {TSVOfferGenerator} from '../shared/libs/offer-generator/index.js';
 import {appendFile} from 'node:fs/promises';
 
 export class GenerateCommand implements Command {
+  private readonly name = '--generate';
   private initialData: MockServerData;
 
   public getName(): string {
-    return '--generate';
+    return this.name;
   }
 
   public async load(url: string): Promise<void> {
@@ -30,8 +31,9 @@ export class GenerateCommand implements Command {
     }
   }
 
-  public async execute(...parameters: string[]) {
+  public async execute(...parameters: string[]): Promise<void> {
     const [count, filepath, url] = parameters;
+    //TODO: Добавить проверку на существование этих трёх переменных
     const offersCount = Number.parseInt(count, 10);
 
     try {
