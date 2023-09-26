@@ -1,5 +1,5 @@
 {
-  "api:": {
+  "api": {
     "names": [
       "Majestic Mountain Retreat",
       "Enchanted Forest Cottage",
@@ -65,7 +65,7 @@
       "Towels",
       "Fridge"
     ],
-    "userNames": [
+    "usernames": [
       "Arthur",
       "Joker",
       "Bender",
