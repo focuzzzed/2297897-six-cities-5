@@ -3,6 +3,8 @@ import {MockServerData} from '../shared/types/index.js';
 import {got} from 'got';
 import {TSVOfferGenerator} from '../shared/libs/offer-generator/index.js';
 import {appendFile} from 'node:fs/promises';
+import {getErrorMessage} from '../shared/helpers/index.js';
+import chalk from 'chalk';
 
 export class GenerateCommand implements Command {
   private readonly name = '--generate';
@@ -41,11 +43,8 @@ export class GenerateCommand implements Command {
       await this.write(filepath, offersCount);
       console.info(`File ${filepath} was created`);
     } catch (error: unknown) {
-      console.error('Can\'t generate data');
-
-      if(error instanceof Error) {
-        console.error(error.message);
-      }
+      console.error(chalk.red('Can\'t generate data'));
+      console.error(chalk.red(getErrorMessage(error)));
     }
 
   }

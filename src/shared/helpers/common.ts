@@ -23,3 +23,7 @@ export function getRandomItems<T>(items: T[], amount = -1): T[] {
 
   return randomItems;
 }
+
+export function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : '';
+}
