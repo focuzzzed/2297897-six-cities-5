@@ -1,4 +1,4 @@
-import {Cities} from './shared/types/index.js';
+import {Cities} from '../types/index.js';
 
 export const CITIES_COORDINATES = { //На дальнейшую реализацию
   [Cities.Paris]: {latitude: 48.85661, longitude: 2.351499},
