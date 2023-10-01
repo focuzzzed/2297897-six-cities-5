@@ -7,9 +7,10 @@ import {Components} from './shared/types/index.js';
 
 async function bootstrap(): Promise<void> {
   const container = new Container();
-  container.bind<RestApplication>(Components.RestApplication).to(RestApplication);
-  container.bind<Logger>(Components.Logger).to(PinoLogger);
-  container.bind<Config<RestSchema>>(Components.Config).to(RestConfig);
+
+  container.bind<RestApplication>(Components.RestApplication).to(RestApplication).inSingletonScope();
+  container.bind<Logger>(Components.Logger).to(PinoLogger).inSingletonScope();
+  container.bind<Config<RestSchema>>(Components.Config).to(RestConfig).inSingletonScope();
 
   const application = container.get<RestApplication>(Components.RestApplication);
   await application.init();
