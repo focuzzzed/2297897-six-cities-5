@@ -2,10 +2,11 @@ import {OfferService} from './offer-service.interface.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';
 import {DocumentType, types} from '@typegoose/typegoose';
 import {OfferEntity} from './offer.entity.js';
-import {inject} from 'inversify';
+import {inject, injectable} from 'inversify';
 import {Components} from '../../types/index.js';
 import {Logger} from '../../libs/logger/index.js';
 
+@injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Components.Logger) private readonly logger: Logger,
@@ -21,6 +22,9 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).exec();
+    return this.offerModel
+      .findById(offerId)
+      .populate(['authorId'])
+      .exec();
   }
 }
