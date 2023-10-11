@@ -22,7 +22,7 @@ export function createOffer(offerData: string): Offer {
   return {
     name,
     description,
-    date,
+    postDate: date,
     city: city as Cities,
     previewImage,
     placeImages: placeImages.split(';'),
@@ -35,6 +35,6 @@ export function createOffer(offerData: string): Offer {
     price: Number(price),
     conveniences: conveniences.split(';') as Conveniences[],
     author,
-    cityCoordinates: {latitude: Number(latitude), longitude: Number(longitude)},
+    location: {latitude: Number(latitude), longitude: Number(longitude)},
   };
 }

@@ -6,7 +6,7 @@ import {User} from './user.type.js';
 export type Offer = {
   name: string;
   description: string;
-  date: string;
+  postDate: string;
   city: Cities;
   previewImage: string;
   placeImages: string[];
@@ -19,5 +19,5 @@ export type Offer = {
   price: number;
   conveniences: Conveniences[];
   author: User;
-  cityCoordinates: Coordinates;
+  location: Coordinates;
 };

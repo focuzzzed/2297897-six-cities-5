@@ -13,6 +13,10 @@ tags:
     description: Действия с предложениями.
   - name: users
     description: Действия с пользователями.
+  - name: comments
+    description: Действия с комментариями.
+  - name: favorites
+    description: Действия с избранными предложениями.
 
 paths:
   /users/register:
@@ -21,7 +25,6 @@ paths:
         - users
       summary: Регистрация пользователя.
       description: Регистрирует нового пользователя.
-
 
       requestBody:
         description: Информация для создания нового пользователя.
@@ -47,21 +50,99 @@ paths:
       tags:
         - users
       summary: Авторизация пользователя
-      description: Авторизует пользователя на основе логина и пароля
+      description: Авторизует пользователя на основе логина и пароля.
+
+      requestBody:
+        description: Информация для авторизации пользователя
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginUser'
+        required: true
+
+      responses:
+        "201":
+          description: Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "400":
+          description: Неверный логин или пароль.
+
+        "404":
+          description: Пользователь с таким email не существует.
+
 
     get:
       tags:
         - users
+      parameters: [{
+        in: "header",
+        name: "x-token",
+        required: true,
+        schema: {
+          type: "string",
+        },
+        description: Авторизационный токен пользователя
+      }]
       summary: Проверка состояния пользователя
       description: Возвращает информацию по авторизованному пользователю
 
+      responses:
+        "200":
+          description: Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "401":
+          description: Доступ запрещен.
+
   /users/{userId}/avatar:
-    post:
+    patch:
       tags:
         - users
       summary: Загрузить изображение аватара
       description: Загружает изображение аватара пользователя. Изображение аватара должно быть в формате `png` или `jpg`.
 
+      responses:
+        "200":
+          description: Аватар пользователя успешно обновлён.
+
+  /offers/:
+    post:
+      tags:
+        - offers
+      parameters:
+        [{
+           in: "header",
+           name: "x-token",
+           required: true,
+           schema: {
+              type: "string",
+           },
+           description: Авторизационный токен польователя.
+        }]
+      summary: Создание нового предложения.
+      description: Маршрут для создания нового предложения.
+
+      requestBody:
+        description: Информация для создания нового предложения.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createOffer'
+
+      responses:
+        "201":
+          description: Предложение создано. Объект предложения.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
 
 components:
   schemas:
@@ -97,18 +178,198 @@ components:
          type: string
          example: 612c123847ex127
 
+        token:
+          type: string
+          example: 'ab-12-cvd-123wsa'
+
         name:
           type: string
           example: Ash
-
-        email:
-          type: string
-          example: ghost@rider.com
 
         avatarUrl:
           type: string
           example: path/to/url
 
+        email:
+          type: string
+          example: ghost@rider.com
+
         type:
           type: string
           example: pro
+
+    location:
+      type: object
+
+      properties:
+        longitude:
+          type: string
+          example: 3.123123
+
+        latitude:
+          type: string
+          example: 4.123124
+
+    createOffer:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Stone House
+
+        description:
+          type: string
+          example: Stone house from stone with a lot of stone.
+
+        city:
+          type: string
+          example: Amsterdam
+
+        previewImage:
+          type: string
+          example: /path/to/preview/
+
+        placeImages:
+          type: array
+          items:
+            type: string
+            example: [
+              https://13.design.pages.academy/static/hotel/16.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+            ]
+            minItems: 6
+
+        isPremium:
+          type: boolean
+          example: false
+
+        isFavorite:
+          type: boolean
+          example: false
+
+        rating:
+          type: number
+          example: 4.5
+
+        type:
+          type: string
+          example: Apartment
+
+        roomsAmount:
+          type: number
+          example: 2
+
+        guestsAmount:
+          type: number
+          example: 2
+
+        price:
+          type: number
+          example: 100
+
+        postDate:
+          type: string
+          example: '2023-09-11T04:20:01'
+
+        location:
+          $ref: '#/components/schemas/location'
+
+        conveniences:
+          type: array
+          items:
+            type: string
+            example: [ Fridge, Washer ]
+
+    offer:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: aa1a1aaa-bbb2-c3c3c33-dd123d
+
+        name:
+          type: string
+          example: Wooden House
+
+        description:
+          type: string
+          example: Wooden house without wolfs.
+
+        city:
+          type: string
+          example: Amsterdam
+
+        previewImage:
+          type: string
+          example: /path/to/image
+
+        placeImages:
+          type: array
+          items:
+            type: string
+            example: [
+              https://13.design.pages.academy/static/hotel/16.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+              https://13.design.pages.academy/static/hotel/17.jpg,
+            ]
+
+        isPremium:
+          type: boolean
+          example: false
+
+        isFavorite:
+          type: boolean
+          example: false
+
+        rating:
+          type: number
+          example: 4.5
+
+        type:
+          type: string
+          example: Apartment
+
+        roomsAmount:
+          type: number
+          example: 1
+
+        guestsAmount:
+          type: number
+          example: 1
+
+        price:
+          type: number
+          example: 100
+
+        postDate:
+          type: string
+          example: '2023-05-04T12:01:01'
+
+        location:
+          $ref: '#/components/schemas/location'
+
+        conveniences:
+          type: array
+          items:
+            type: string
+            example: [ Breakfast, Washer ]
+
+    loginUser:
+      type: object
+      properties:
+        email:
+          type: string
+          example: ghost@rider.ru
+
+        password:
+          type: string
+          example: lov3m7b1ke
+
