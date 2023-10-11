@@ -7,4 +7,5 @@ export function createCommentContainer() {
   const commentContainer = new Container();
 
   commentContainer.bind<types.ModelType<CommentEntity>>(Components.CommentModel).toConstantValue(CommentModel);
+  //TODO: Добавить сервис
 }

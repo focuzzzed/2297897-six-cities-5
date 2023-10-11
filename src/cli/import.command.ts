@@ -51,7 +51,7 @@ export class ImportCommand implements Command {
     await this.offerService.create({
       name: offer.name,
       description: offer.description,
-      date: offer.date,
+      date: offer.postDate,
       city: offer.city,
       previewImage: offer.previewImage,
       placeImages: offer.placeImages,
@@ -64,7 +64,7 @@ export class ImportCommand implements Command {
       price: offer.price,
       conveniences: offer.conveniences,
       authorId: user.id,
-      cityCoordinates: offer.cityCoordinates
+      cityCoordinates: offer.location
     });
   }
 
