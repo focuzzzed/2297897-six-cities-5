@@ -6,6 +6,7 @@ import {inject, injectable} from 'inversify';
 import {Components, SortType} from '../../types/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {UpdateOfferDto} from './dto/update-offer.dto.js';
+import {DEFAULT_OFFER_COUNT} from './offer.constant.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
@@ -22,10 +23,56 @@ export class DefaultOfferService implements OfferService {
     return result;
   }
 
-  public async find(): Promise<DocumentType<OfferEntity>[]> {
+  public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
+    const limit = count ?? DEFAULT_OFFER_COUNT;
+
+    const lookupOperation = {
+      $lookup: {
+        from: 'comments',
+        localField: '_id',
+        foreignField: 'offerId',
+        as: 'comments',
+      },
+    };
+
+    const addFieldsOperation = {
+      $addFields: {
+        rating: {
+          $divide: [
+            {
+              $reduce: {
+                input: '$comments',
+                initialValue: 0,
+                in: { $add: ['$$value', '$$this.rating'] },
+              },
+            },
+            {
+              $cond: [
+                { $ne: [{ $size: '$comments' }, 0] },
+                { $size: '$comments' },
+                1,
+              ],
+            },
+          ],
+        },
+        commentsCount: { $size: '$comments' },
+      },
+    };
+
+    const removeCommentsOperation = { $unset: 'comments'};
+
+    const limitOperation = { $limit: limit };
+
+    const sortOperation = { $sort: { createdAt: SortType.Down } };
+
     return this.offerModel
-      .find()
-      .populate('authorId')
+      .aggregate([
+        lookupOperation,
+        addFieldsOperation,
+        removeCommentsOperation,
+        limitOperation,
+        sortOperation
+      ])
       .exec();
   }
 
@@ -56,7 +103,7 @@ export class DefaultOfferService implements OfferService {
   public async incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findByIdAndUpdate(offerId, {'$inc': {
-        commentCount: 1,
+        commentsCount: 1,
       }}).exec();
   }
 
@@ -72,7 +119,7 @@ export class DefaultOfferService implements OfferService {
   findPopular(count: number): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
-      .sort({ commentCount: SortType.Down })
+      .sort({ commentsCount: SortType.Down })
       .limit(count)
       .populate('authorId')
       .exec();
