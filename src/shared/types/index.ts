@@ -7,3 +7,4 @@ export * from './user-types.enum.js';
 export * from './mock-server-data.types.js';
 export * from './components.enum.js';
 export * from './comment.type.js';
+export * from './sort-type.enum.js';
