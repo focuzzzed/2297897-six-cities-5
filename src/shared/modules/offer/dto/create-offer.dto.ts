@@ -3,7 +3,7 @@ import {Cities, Conveniences, Coordinates, PlacesTypes} from '../../../types/ind
 export class CreateOfferDto {
   public name: string;
   public description: string;
-  public date: string;
+  public postDate: string;
   public city: Cities;
   public previewImage: string;
   public placeImages: string[];

@@ -28,7 +28,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public description!: string;
 
   @prop({required: true})
-  public date!: Date;
+  public postDate!: Date;
 
   @prop({
     type: String,
@@ -91,7 +91,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public cityCoordinates!: Coordinates;
 
   @prop({default: 0})
-  public commentCount!: number;
+  public commentsCount!: number;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);
