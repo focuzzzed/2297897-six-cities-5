@@ -21,11 +21,17 @@ export class DefaultCommentService implements CommentService{
     return result;
   }
 
-  public async findById(commentId: string): Promise<DocumentType<CommentEntity> | null> {
-    return this.commentModel.findById(commentId);
+  public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {
+    return this.commentModel
+      .find({offerId})
+      .populate('userId');
   }
 
-  public async find(): Promise<DocumentType<CommentEntity>[]> {
-    return this.commentModel.find();
+  public async deleteByOfferId(offerId:string): Promise<number> {
+    const result = await this.commentModel
+      .deleteMany({offerId})
+      .exec();
+
+    return result.deletedCount;
   }
 }

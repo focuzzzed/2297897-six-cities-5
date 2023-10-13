@@ -17,20 +17,20 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     minlength: [2, 'Minimal name length is 2'],
     default: ''
   })
-  public name: string;
+  public name!: string;
 
   @prop({
     required: true,
     unique: true,
     default: ''
   })
-  public email: string;
+  public email!: string;
 
   @prop({
     required: false,
     default: ''
   })
-  public avatarUrl: string;
+  public avatarUrl?: string;
 
   @prop({
     required: true,
@@ -42,7 +42,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     required: true,
     default: ''
   })
-  public type: UserTypes;
+  public type!: UserTypes;
 
   constructor(userData: User) {
     super();
