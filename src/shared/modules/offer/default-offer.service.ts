@@ -47,11 +47,11 @@ export class DefaultOfferService implements OfferService {
               },
             },
             {
-              $cond: [
-                { $ne: [{ $size: '$comments' }, 0] },
-                { $size: '$comments' },
-                1,
-              ],
+              $cond: {
+                if: {$ne: [{$size: '$comments'}, 0]},
+                then: {$size: '$comments'},
+                else: 1
+              },
             },
           ],
         },
