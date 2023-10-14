@@ -116,7 +116,7 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  findPopular(count: number): Promise<DocumentType<OfferEntity>[]> {
+  public async findPopular(count: number): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
       .sort({ commentsCount: SortType.Down })

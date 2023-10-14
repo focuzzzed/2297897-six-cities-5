@@ -96,7 +96,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/user'
 
-        "401":
+        "403":
           description: Доступ запрещен.
 
   /users/{userId}/avatar:
