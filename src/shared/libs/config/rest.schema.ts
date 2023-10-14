@@ -48,12 +48,12 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Port to connect to the database (MongoDB)',
     format: 'port',
     env: 'DB_PORT',
-    default: '27017',
+    default: null,
   },
   DB_NAME: {
     doc: 'Database name (MongoDB)',
     format: String,
     env: 'DB_NAME',
-    default: 'six-cities',
+    default: null,
   }
 });
