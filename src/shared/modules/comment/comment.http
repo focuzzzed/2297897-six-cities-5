@@ -1,0 +1,6 @@
+# Комментарии
+## Получить список комментариев под определённый оффер
+GET http://localhost:6000/comments/:offerId HTTP/1.1
+Content-Type: application/json
+
+###

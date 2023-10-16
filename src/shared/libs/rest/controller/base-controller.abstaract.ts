@@ -2,10 +2,12 @@ import {Controller} from './controller.interface.js';
 import {Response, Router} from 'express';
 import {Logger} from '../../logger/index.js';
 import {Route} from '../types/route.interface.js';
-import {StatusCodes} from 'http-status-codes/build/es/index.js';
+import {StatusCodes} from 'http-status-codes';
+import {injectable} from 'inversify';
 
 const DEFAULT_CONTENT_TYPE = 'application/json';
 
+@injectable()
 export abstract class BaseController implements Controller {
   private readonly _router: Router;
 
@@ -33,6 +35,10 @@ export abstract class BaseController implements Controller {
 
   public created<T>(res: Response, data: T) {
     this.send(res, StatusCodes.CREATED, data);
+  }
+
+  public notFound<T>(res: Response, data: T) {
+    this.send(res, StatusCodes.NOT_FOUND, data);
   }
 
   public noContent<T>(res: Response, data: T) {
