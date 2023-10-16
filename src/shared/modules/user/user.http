@@ -1,0 +1,4 @@
+#Пользователи
+##Получить пользователя по email
+GET http://localhost:6000/users/crane@light.com HTTP/1.1
+Content-Type: application/json
