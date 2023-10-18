@@ -37,7 +37,7 @@ Content-Type: application/json
   ],
   "authorId": "652fbc1d18db28e48255b8d6",
   "location": {
-    "longitude": "12.133242",
-    "latitude": "1.1234562"
+    "longitude": 12.133242,
+    "latitude": 1.1234562
   }
 }

@@ -1,6 +1,6 @@
 import {BaseController, HttpMethods} from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
-import {inject} from 'inversify';
+import {inject, injectable} from 'inversify';
 import {Logger} from '../../libs/logger/index.js';
 import {Request, Response} from 'express';
 import {UserService} from './user-service.interface.js';
@@ -10,6 +10,7 @@ import {CreateUserDto} from './dto/create-user.dto.js';
 import {StatusCodes} from 'http-status-codes';
 import {Config, RestSchema} from '../../libs/config/index.js';
 
+@injectable()
 export class UserController extends BaseController {
   constructor(
     @inject(Components.Logger) protected readonly logger: Logger,

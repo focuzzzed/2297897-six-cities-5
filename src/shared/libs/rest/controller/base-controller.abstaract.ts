@@ -4,8 +4,7 @@ import {Logger} from '../../logger/index.js';
 import {Route} from '../types/route.interface.js';
 import {StatusCodes} from 'http-status-codes';
 import {injectable} from 'inversify';
-
-const DEFAULT_CONTENT_TYPE = 'application/json';
+import {DEFAULT_CONTENT_TYPE} from './base-controller.constant.js';
 
 @injectable()
 export abstract class BaseController implements Controller {
