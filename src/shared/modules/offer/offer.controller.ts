@@ -6,7 +6,7 @@ import {Request, Response} from 'express';
 import {OfferService} from './offer-service.interface.js';
 import {fillDTO} from '../../helpers/index.js';
 import {OfferRdo} from './rdo/offer.rdo.js';
-import {CreateOfferDto} from './dto/create-offer.dto.js';
+import {CreateOfferRequest} from './create-offer-request.type.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -28,7 +28,7 @@ export class OfferController extends BaseController {
   }
 
   public async create(
-    {body}: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDto>,
+    {body}: CreateOfferRequest,
     res: Response
   ) {
     const result = await this.offerService.create(body);
