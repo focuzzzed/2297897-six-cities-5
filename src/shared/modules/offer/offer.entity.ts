@@ -1,4 +1,5 @@
 import {defaultClasses, getModelForClass, modelOptions, prop, Ref, Severity} from '@typegoose/typegoose';
+
 import {Cities, Conveniences, Coordinates, PlacesTypes} from '../../types/index.js';
 import {UserEntity} from '../user/index.js';
 

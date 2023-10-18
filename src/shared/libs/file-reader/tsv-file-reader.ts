@@ -1,6 +1,7 @@
-import {FileReader} from './file-reader.interface.js';
 import {EventEmitter} from 'node:events';
 import {createReadStream} from 'node:fs';
+
+import {FileReader} from './file-reader.interface.js';
 
 const CHUNK_SIZE = 16384; //16Kb
 

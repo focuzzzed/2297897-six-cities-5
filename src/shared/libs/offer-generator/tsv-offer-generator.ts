@@ -1,6 +1,5 @@
-import {OfferGenerator} from './offer-generator.interface.js';
+import {generateRandomValue,getRandomItem, getRandomItems} from '../../helpers/index.js';
 import {MockServerData} from '../../types/index.js';
-import {getRandomItem, getRandomItems, generateRandomValue} from '../../helpers/index.js';
 import {
   AMOUNT_OF_PLACE_IMAGES,
   AvailablePlaceRooms,
@@ -8,6 +7,7 @@ import {
   PlaceGuestsAmount,
   PlaceRentPrices
 } from './const.js';
+import {OfferGenerator} from './offer-generator.interface.js';
 
 
 export class TSVOfferGenerator implements OfferGenerator {

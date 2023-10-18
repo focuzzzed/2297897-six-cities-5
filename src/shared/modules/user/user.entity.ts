@@ -1,6 +1,7 @@
-import {User, UserTypes} from '../../types/index.js';
 import {defaultClasses, getModelForClass, modelOptions, prop} from '@typegoose/typegoose';
+
 import {createSHA} from '../../helpers/hash.js';
+import {User, UserTypes} from '../../types/index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}

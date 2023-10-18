@@ -1,8 +1,9 @@
-import {BaseController, HttpMethods} from '../../libs/rest/index.js';
-import {inject, injectable} from 'inversify';
-import {Components} from '../../types/index.js';
-import {Logger} from '../../libs/logger/index.js';
 import {Request, Response} from 'express';
+import {inject, injectable} from 'inversify';
+
+import {Logger} from '../../libs/logger/index.js';
+import {BaseController, HttpMethods} from '../../libs/rest/index.js';
+import {Components} from '../../types/index.js';
 import {CommentService} from './comment-service.interface.js';
 
 @injectable()

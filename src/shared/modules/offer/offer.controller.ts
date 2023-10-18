@@ -1,12 +1,13 @@
-import {BaseController, HttpMethods} from '../../libs/rest/index.js';
-import {inject, injectable} from 'inversify';
-import {Components} from '../../types/index.js';
-import {Logger} from '../../libs/logger/index.js';
 import {Request, Response} from 'express';
-import {OfferService} from './offer-service.interface.js';
+import {inject, injectable} from 'inversify';
+
 import {fillDTO} from '../../helpers/index.js';
-import {OfferRdo} from './rdo/offer.rdo.js';
+import {Logger} from '../../libs/logger/index.js';
+import {BaseController, HttpMethods} from '../../libs/rest/index.js';
+import {Components} from '../../types/index.js';
 import {CreateOfferRequest} from './create-offer-request.type.js';
+import {OfferService} from './offer-service.interface.js';
+import {OfferRdo} from './rdo/offer.rdo.js';
 
 @injectable()
 export class OfferController extends BaseController {

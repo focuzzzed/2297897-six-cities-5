@@ -1,11 +1,12 @@
 import {Container} from 'inversify';
-import {RestApplication} from './rest.application.js';
-import {Components} from '../shared/types/index.js';
-import {Logger, PinoLogger} from '../shared/libs/logger/index.js';
+
 import {Config, RestConfig, RestSchema} from '../shared/libs/config/index.js';
 import {DatabaseClient, MongoDatabaseClient} from '../shared/libs/database-client/index.js';
+import {Logger, PinoLogger} from '../shared/libs/logger/index.js';
 import {ExceptionFilter} from '../shared/libs/rest/index.js';
 import {DefaultExceptionFilter} from '../shared/libs/rest/index.js';
+import {Components} from '../shared/types/index.js';
+import {RestApplication} from './rest.application.js';
 
 export function createRestApplicationContainer() {
   const restApplicationContainer = new Container();

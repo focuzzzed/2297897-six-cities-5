@@ -1,13 +1,14 @@
-import {Command} from './command.interface.js';
-import {TSVFileReader} from '../shared/libs/file-reader/index.js';
 import chalk from 'chalk';
+
 import {createOffer, getErrorMessage, getMongoURI} from '../shared/helpers/index.js';
+import {DatabaseClient, MongoDatabaseClient} from '../shared/libs/database-client/index.js';
+import {TSVFileReader} from '../shared/libs/file-reader/index.js';
 import {ConsoleLogger, Logger} from '../shared/libs/logger/index.js';
 import {DefaultOfferService, OfferModel, OfferService} from '../shared/modules/offer/index.js';
 import {DefaultUserService, UserModel, UserService} from '../shared/modules/user/index.js';
-import {DatabaseClient, MongoDatabaseClient} from '../shared/libs/database-client/index.js';
 import {Offer} from '../shared/types/index.js';
 import {DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD} from './command.constant.js';
+import {Command} from './command.interface.js';
 
 export class ImportCommand implements Command {
   private readonly name = '--import';

@@ -1,5 +1,6 @@
-import {UserTypes} from '../../../types/index.js';
 import {Expose} from 'class-transformer';
+
+import {UserTypes} from '../../../types/index.js';
 
 export class UserRdo {
   @Expose()

@@ -1,6 +1,7 @@
 import {defaultClasses, getModelForClass, modelOptions, prop, Ref} from '@typegoose/typegoose';
-import {UserEntity} from '../user/index.js';
+
 import {OfferEntity} from '../offer/index.js';
+import {UserEntity} from '../user/index.js';
 
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
