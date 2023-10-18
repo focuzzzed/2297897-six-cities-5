@@ -16,5 +16,5 @@ export class UpdateOfferDto {
   public price?: number;
   public conveniences?: Conveniences[];
   public authorId?: string;
-  public cityCoordinates?: Coordinates;
+  public location?: Coordinates;
 }

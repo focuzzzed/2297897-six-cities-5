@@ -56,6 +56,7 @@ export class DefaultOfferService implements OfferService {
           ],
         },
         commentsCount: { $size: '$comments' },
+        id: {$toString: '$_id'}
       },
     };
 

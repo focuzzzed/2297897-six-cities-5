@@ -4,6 +4,9 @@ import {Components} from '../../types/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {Request, Response} from 'express';
 import {OfferService} from './offer-service.interface.js';
+import {fillDTO} from '../../helpers/index.js';
+import {OfferRdo} from './rdo/offer.rdo.js';
+import {CreateOfferDto} from './dto/create-offer.dto.js';
 
 export class OfferController extends BaseController {
   constructor(
@@ -20,10 +23,14 @@ export class OfferController extends BaseController {
 
   public async index(_req: Request, res: Response) {
     const offers = await this.offerService.find();
-    this.ok(res, offers);
+    this.ok(res, fillDTO(OfferRdo, offers));
   }
 
-  public create(_req: Request, _res: Response) {
-    //TODO: Доработать
+  public async create(
+    {body}: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDto>,
+    res: Response
+  ) {
+    const result = await this.offerService.create(body);
+    this.created(res, fillDTO(OfferRdo, result));
   }
 }

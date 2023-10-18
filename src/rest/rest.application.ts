@@ -45,12 +45,20 @@ export class RestApplication {
     this.server.use('/comments', this.commentController.router);
   }
 
+  private async initMiddleware() {
+    this.server.use(express.json());
+  }
+
   public async init(): Promise<void> {
     this.logger.info('Application Initialization');
 
     this.logger.info('Initializing the database...');
     await this.initDb();
     this.logger.info('Database is initialized');
+
+    this.logger.info('Init app-level middleware');
+    await this.initMiddleware();
+    this.logger.info('Controller initialization completed');
 
     this.logger.info('Initializing controllers...');
     await this.initControllers();
