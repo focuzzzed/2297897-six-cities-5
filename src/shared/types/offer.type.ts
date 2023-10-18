@@ -1,6 +1,6 @@
 import {Cities, Coordinates} from './cities.enum.js';
-import {PlacesTypes} from './places-types.enum.js';
 import {Conveniences} from './conveniences.enum.js';
+import {PlacesTypes} from './places-types.enum.js';
 import {User} from './user.type.js';
 
 export type Offer = {
