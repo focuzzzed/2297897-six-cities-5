@@ -1,4 +1,4 @@
-import {BaseController, HttpMethods} from '../../libs/rest/index.js';
+import {BaseController, HttpError, HttpMethods} from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
 import {inject, injectable} from 'inversify';
 import {Logger} from '../../libs/logger/index.js';
@@ -6,9 +6,10 @@ import {Request, Response} from 'express';
 import {UserService} from './user-service.interface.js';
 import {fillDTO} from '../../helpers/index.js';
 import {UserRdo} from './rdo/user.rdo.js';
-import {CreateUserDto} from './dto/create-user.dto.js';
 import {StatusCodes} from 'http-status-codes';
 import {Config, RestSchema} from '../../libs/config/index.js';
+import {CreateUserRequest} from './create-user-request.type.js';
+import {LoginUserRequest} from './login-user-request.type.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -22,7 +23,8 @@ export class UserController extends BaseController {
     this.logger.info('Register routes for UserController...');
 
     this.addRoute({path: '/:email', method: HttpMethods.Get, handler: this.index});
-    this.addRoute({path: '/', method: HttpMethods.Post, handler: this.create});
+    this.addRoute({path: '/register', method: HttpMethods.Post, handler: this.create});
+    this.addRoute({path: '/login', method: HttpMethods.Post, handler: this.login});
   }
 
   public async index(req: Request, res: Response): Promise<void> {
@@ -38,23 +40,41 @@ export class UserController extends BaseController {
   }
 
   public async create(
-    {body}: Request<Record<string, unknown>, Record<string, unknown>, CreateUserDto>,
+    {body}: CreateUserRequest,
     res: Response
   ): Promise<void> {
-    const existUser = await this.userService.findByEmail(body.email);
+    const existsUser = await this.userService.findByEmail(body.email);
 
-    if(existUser) {
-      const existsUserError = new Error(`User with email: ${body.email} already exists`);
-      this.send(
-        res,
-        StatusCodes.UNPROCESSABLE_ENTITY,
-        {error: existsUserError.message}
+    if(existsUser) {
+      throw new HttpError(
+        StatusCodes.CONFLICT,
+        `User, with email: «${body.email}», already exists`,
+        'UserController'
       );
-
-      return this.logger.error(existsUserError, existsUserError.message);
     }
 
     const result = await this.userService.create(body, this.config.get('SALT'));
     this.created(res, fillDTO(UserRdo, result));
+  }
+
+  public async login(
+    {body}: LoginUserRequest,
+    _res: Response
+  ) {
+    const existsUser = await this.userService.findByEmail(body.email);
+
+    if(!existsUser){
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        `User with email ${body.email} not found.`,
+        'UserController'
+      );
+    }
+
+    throw new HttpError(
+      StatusCodes.NOT_IMPLEMENTED,
+      'Not implemented',
+      'UserController'
+    );
   }
 }

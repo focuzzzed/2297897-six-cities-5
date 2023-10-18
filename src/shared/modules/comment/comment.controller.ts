@@ -26,6 +26,6 @@ export class CommentController extends BaseController {
   }
 
   public async create(_req: Request, _res: Response): Promise<void> {
-    //TODO: Доработать
+    throw new Error('Exception filter test');
   }
 }
