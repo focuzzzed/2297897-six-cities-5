@@ -1,5 +1,5 @@
 import {BaseController, HttpMethods} from '../../libs/rest/index.js';
-import {inject} from 'inversify';
+import {inject, injectable} from 'inversify';
 import {Components} from '../../types/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {Request, Response} from 'express';
@@ -8,6 +8,7 @@ import {fillDTO} from '../../helpers/index.js';
 import {OfferRdo} from './rdo/offer.rdo.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';
 
+@injectable()
 export class OfferController extends BaseController {
   constructor(
     @inject(Components.Logger) protected readonly logger: Logger,

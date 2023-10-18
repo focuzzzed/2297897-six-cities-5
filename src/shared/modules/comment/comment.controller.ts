@@ -1,10 +1,11 @@
 import {BaseController, HttpMethods} from '../../libs/rest/index.js';
-import {inject} from 'inversify';
+import {inject, injectable} from 'inversify';
 import {Components} from '../../types/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {Request, Response} from 'express';
 import {CommentService} from './comment-service.interface.js';
 
+@injectable()
 export class CommentController extends BaseController {
   constructor(
     @inject(Components.Logger) protected readonly logger: Logger,
@@ -24,7 +25,7 @@ export class CommentController extends BaseController {
     this.ok(res, comments);
   }
 
-  public create(_req: Request, _res: Response) {
+  public async create(_req: Request, _res: Response): Promise<void> {
     //TODO: Доработать
   }
 }

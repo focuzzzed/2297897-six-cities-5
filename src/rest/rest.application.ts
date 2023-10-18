@@ -9,7 +9,7 @@ import {Controller} from '../shared/libs/rest/index.js';
 
 @injectable()
 export class RestApplication {
-  private server: Express;
+  private server: Express = express();
 
   constructor(
     @inject(Components.Logger) private readonly logger: Logger,
@@ -18,9 +18,7 @@ export class RestApplication {
     @inject(Components.UserController) private readonly userController: Controller,
     @inject(Components.CommentController) private readonly commentController: Controller,
     @inject(Components.OfferController) private readonly offerController: Controller,
-  ) {
-    this.server = express();
-  }
+  ) {}
 
   private initDb() {
     const mongoUri = getMongoURI(
