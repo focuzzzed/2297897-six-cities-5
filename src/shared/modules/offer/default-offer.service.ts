@@ -27,7 +27,16 @@ export class DefaultOfferService implements OfferService {
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
     const limit = count ?? DEFAULT_OFFER_COUNT;
 
-    const lookupOperation = {
+    const lookupUserOperation = {
+      $lookup: {
+        from: 'users',
+        localField: 'authorId',
+        foreignField: '_id',
+        as: 'authorId',
+      },
+    };
+
+    const lookupCommentsOperation = {
       $lookup: {
         from: 'comments',
         localField: '_id',
@@ -69,8 +78,9 @@ export class DefaultOfferService implements OfferService {
 
     return this.offerModel
       .aggregate([
-        lookupOperation,
+        lookupCommentsOperation,
         addFieldsOperation,
+        lookupUserOperation,
         removeCommentsOperation,
         limitOperation,
         sortOperation
