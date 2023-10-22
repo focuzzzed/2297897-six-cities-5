@@ -7,6 +7,7 @@ import {Logger} from '../../libs/logger/index.js';
 import {BaseController, HttpError, HttpMethods} from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
 import {CreateOfferRequest} from './create-offer-request.type.js';
+import {UpdateOfferDto} from './dto/update-offer.dto.js';
 import {OfferService} from './offer-service.interface.js';
 import {OfferRdo} from './rdo/offer.rdo.js';
 import {ParamOfferId} from './type/param-offerid.type.js';
@@ -24,6 +25,8 @@ export class OfferController extends BaseController {
     this.addRoute({path: '/', method: HttpMethods.Get, handler: this.index});
     this.addRoute({path: '/:offerId', method: HttpMethods.Get, handler: this.show});
     this.addRoute({path: '/', method: HttpMethods.Post, handler: this.create});
+    this.addRoute({path: '/:offerId', method: HttpMethods.Delete, handler: this.delete});
+    this.addRoute({path: '/:offerId', method: HttpMethods.Patch, handler: this.update});
   }
 
   public async index(_req: Request, res: Response) {
@@ -51,6 +54,43 @@ export class OfferController extends BaseController {
     res: Response
   ) {
     const result = await this.offerService.create(body);
-    this.created(res, fillDTO(OfferRdo, result));
+    const offer = await this.offerService.findById(result.id);
+    this.created(res, fillDTO(OfferRdo, offer));
+  }
+
+  public async delete(
+    {params}: Request<ParamOfferId>,
+    res: Response
+  ) {
+    const {offerId} = params;
+    const offer = await this.offerService.deleteById(offerId);
+
+    if(!offer) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with id: «${offerId}» not found`,
+        'OfferController'
+      );
+    }
+
+    this.noContent(res, offer);
+  }
+
+  public async update(
+    {params, body}: Request<ParamOfferId, unknown, UpdateOfferDto>,
+    res: Response
+  ){
+    const {offerId} = params;
+    const updatedOffer = await this.offerService.updateById(offerId, body);
+
+    if(!updatedOffer){
+      throw new HttpError(
+        StatusCodes.BAD_REQUEST,
+        `Offer with id: «${offerId}» not found`,
+        'OfferController'
+      );
+    }
+
+    this.ok(res, fillDTO(OfferRdo, updatedOffer));
   }
 }

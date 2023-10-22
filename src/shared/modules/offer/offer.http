@@ -45,5 +45,27 @@ Content-Type: application/json
 ###
 
 ##Показать предложение
-GET http://localhost:6000/offers/652fbc1d18db28e48255b8c8 HTTP/1.1
+GET http://localhost:6000/offers/6535820522f34085afeeb31f HTTP/1.1
 Content-Type: application/json
+
+###
+
+##Удалить предложение
+DELETE http://localhost:6000/offers/6535820522f34085afeeb31f HTTP/1.1
+Content-Type: application/json
+
+###
+
+##Обновить предложение
+PATCH http://localhost:6000/offers/6535820522f34085afeeb31f HTTP/1.1
+Content-Type: application/json
+
+{
+  "authorId": "652fbc1e18db28e48255b8fe",
+  "location": {
+    "longitude": 15.5,
+    "latitude": 2.2
+  }
+}
+
+###
