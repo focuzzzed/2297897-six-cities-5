@@ -4,7 +4,7 @@ import {inject, injectable} from 'inversify';
 
 import {fillDTO} from '../../helpers/index.js';
 import {Logger} from '../../libs/logger/index.js';
-import {BaseController, HttpError, HttpMethods} from '../../libs/rest/index.js';
+import {BaseController, HttpError, HttpMethods, ValidateObjectIdMiddleware} from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
 import {OfferService} from '../offer/index.js';
 import {CommentService} from './comment-service.interface.js';
@@ -22,7 +22,12 @@ export class CommentController extends BaseController {
 
     this.logger.info('Register routes for CommentController...');
 
-    this.addRoute({path: '/:offerId', method: HttpMethods.Post, handler: this.create});
+    this.addRoute({
+      path: '/:offerId',
+      method: HttpMethods.Post,
+      handler: this.create,
+      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+    });
   }
 
   public async create(
