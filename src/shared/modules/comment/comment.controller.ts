@@ -5,9 +5,11 @@ import {inject, injectable} from 'inversify';
 import {fillDTO} from '../../helpers/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {BaseController, HttpError, HttpMethods, ValidateObjectIdMiddleware} from '../../libs/rest/index.js';
+import {ValidateDtoMiddleware} from '../../libs/rest/middleware/validate-dto.middleware.js';
 import {Components} from '../../types/index.js';
 import {OfferService} from '../offer/index.js';
 import {CommentService} from './comment-service.interface.js';
+import {CreateCommentDto} from './dto/create-comment.dto.js';
 import {CommentRdo} from './rdo/comment.rdo.js';
 import {CreateCommentRequest} from './types/create-comment-request.type.js';
 
@@ -26,7 +28,10 @@ export class CommentController extends BaseController {
       path: '/:offerId',
       method: HttpMethods.Post,
       handler: this.create,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new ValidateDtoMiddleware(CreateCommentDto)
+      ]
     });
   }
 
