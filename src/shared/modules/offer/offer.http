@@ -10,10 +10,10 @@ POST http://localhost:6000/offers HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Bat Cave",
-  "description": "Alfred! Delete this!!!",
+  "name": "Late Caves for weekends",
+  "description": "Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!!",
   "postDate": "2023-09-18T18:05:00Z",
-  "city": "Amsterdam",
+  "city": "Paris",
   "previewImage": "batman.com/avatar",
   "placeImages": [
     "Batman",
@@ -25,7 +25,7 @@ Content-Type: application/json
   ],
   "isPremium": true,
   "isFavorite": false,
-  "rating": 0,
+  "rating": 1,
   "type": "House",
   "roomsAmount": 5,
   "guestsAmount": 9,

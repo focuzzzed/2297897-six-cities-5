@@ -5,9 +5,11 @@ import {inject, injectable} from 'inversify';
 import {fillDTO} from '../../helpers/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {BaseController, HttpError, HttpMethods, ValidateObjectIdMiddleware} from '../../libs/rest/index.js';
+import {ValidateDtoMiddleware} from '../../libs/rest/middleware/validate-dto.middleware.js';
 import {Components} from '../../types/index.js';
 import {CommentService} from '../comment/index.js';
 import {CommentRdo} from '../comment/rdo/comment.rdo.js';
+import {CreateOfferDto} from './dto/create-offer.dto.js';
 import {UpdateOfferDto} from './dto/update-offer.dto.js';
 import {OfferService} from './offer-service.interface.js';
 import {OfferRdo} from './rdo/offer.rdo.js';
@@ -27,7 +29,12 @@ export class OfferController extends BaseController {
 
     this.addRoute({path: '/', method: HttpMethods.Get, handler: this.index});
 
-    this.addRoute({path: '/', method: HttpMethods.Post, handler: this.create});
+    this.addRoute({
+      path: '/',
+      method: HttpMethods.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
+    });
 
     this.addRoute({
       path: '/:offerId',
@@ -47,7 +54,10 @@ export class OfferController extends BaseController {
       path: '/:offerId',
       method: HttpMethods.Patch,
       handler: this.update,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new ValidateDtoMiddleware(CreateOfferDto)
+      ]
     });
 
     this.addRoute({
@@ -115,7 +125,7 @@ export class OfferController extends BaseController {
     if(!updatedOffer){
       throw new HttpError(
         StatusCodes.BAD_REQUEST,
-        `Offer with id: «${offerId}» not found`,
+        `Offer with id: «${offerId}» not exists`,
         'OfferController'
       );
     }

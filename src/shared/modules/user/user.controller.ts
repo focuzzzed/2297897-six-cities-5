@@ -6,10 +6,15 @@ import {fillDTO} from '../../helpers/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {BaseController, HttpError, HttpMethods} from '../../libs/rest/index.js';
+import {ValidateDtoMiddleware} from '../../libs/rest/middleware/validate-dto.middleware.js';
 import {Components} from '../../types/index.js';
-import {CreateUserRequest} from './create-user-request.type.js';
+import {CreateUserDto} from './dto/create-user.dto.js';
+import {LoginUserDto} from './dto/login-user.dto.js';
+import {UpdateUserDto} from './dto/update-user.dto.js';
 import {LoginUserRequest} from './login-user-request.type.js';
 import {UserRdo} from './rdo/user.rdo.js';
+import {CreateUserRequest} from './types/create-user-request.type.js';
+import {ParamUserId} from './types/param-userid.types.js';
 import {UserService} from './user-service.interface.js';
 
 @injectable()
@@ -17,15 +22,34 @@ export class UserController extends BaseController {
   constructor(
     @inject(Components.Logger) protected readonly logger: Logger,
     @inject(Components.UserService) protected readonly userService: UserService,
-    @inject(Components.Config) protected readonly config: Config<RestSchema>, //Возможно лишнее
+    @inject(Components.Config) protected readonly config: Config<RestSchema>,
   ) {
     super(logger);
 
     this.logger.info('Register routes for UserController...');
 
     this.addRoute({path: '/:email', method: HttpMethods.Get, handler: this.index});
-    this.addRoute({path: '/register', method: HttpMethods.Post, handler: this.create});
-    this.addRoute({path: '/login', method: HttpMethods.Post, handler: this.login});
+
+    this.addRoute({
+      path: '/register',
+      method: HttpMethods.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateUserDto)]
+    });
+
+    this.addRoute({
+      path: '/login',
+      method: HttpMethods.Post,
+      handler: this.login,
+      middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
+    });
+
+    this.addRoute({
+      path: '/:userId',
+      method: HttpMethods.Patch,
+      handler: this.update,
+      middlewares: [new ValidateDtoMiddleware(UpdateUserDto)]
+    });
   }
 
   public async index(req: Request, res: Response): Promise<void> {
@@ -77,5 +101,23 @@ export class UserController extends BaseController {
       'Not implemented',
       'UserController'
     );
+  }
+
+  public async update(
+    {body, params}: Request<ParamUserId, unknown, UpdateUserDto>,
+    res: Response
+  ){
+    const {userId} = params;
+    const updatedUser = await this.userService.updateById(userId, body);
+
+    if(!updatedUser){
+      throw new HttpError(
+        StatusCodes.BAD_REQUEST,
+        `User with id: «${userId}» not exists`,
+        'UserController'
+      );
+    }
+
+    this.ok(res, fillDTO(UserRdo, updatedUser));
   }
 }

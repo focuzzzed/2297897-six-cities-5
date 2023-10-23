@@ -10,10 +10,10 @@ POST http://localhost:6000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "KillerQueen",
-  "email": "f.merkury@queen.com",
+  "name": "BeautifulMaxim",
+  "email": "maxim@placebo.com",
   "type": "обычный",
-  "password": "theshowmustgooooooon"
+  "password": "beautifulmax"
 }
 
 ###
@@ -23,8 +23,19 @@ POST http://localhost:6000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "f.mserkury@queen.com",
+  "email": "f.merkury@queen.com",
   "password": "theshowmustgooooooon"
+}
+
+###
+
+##Обновить информацию о пользователе
+PATCH http://localhost:6000/users/6536d3fe88a91f2474bba958 HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "maxsus@blur.com",
+  "password": "whattheheck"
 }
 
 ###

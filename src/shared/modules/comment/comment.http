@@ -4,8 +4,8 @@ POST http://localhost:6000/comments/652fbc1e18db28e48255b8e9 HTTP/1.1
 Content-Type: application/json
 
 {
-  "description": "It's bad! I am goth and i like it",
-  "rating": 5,
+  "description": "One two three fourth five six seven",
+  "rating": 3,
   "authorId": "652fbc1d18db28e48255b8d6",
   "offerId": "652fbc1e18db28e48255b8e9"
 }
