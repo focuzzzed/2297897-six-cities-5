@@ -114,6 +114,7 @@ export class DefaultOfferService implements OfferService {
     return (await this.offerModel.exists({_id: documentId}) !== null);
   }
 
+  //TODO: Подсчёт рейтинга работает только при использовании агрегации.
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findById(offerId)
