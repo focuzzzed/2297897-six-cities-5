@@ -5,8 +5,13 @@ import {inject, injectable} from 'inversify';
 import {fillDTO} from '../../helpers/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {Logger} from '../../libs/logger/index.js';
-import {BaseController, HttpError, HttpMethods} from '../../libs/rest/index.js';
-import {ValidateDtoMiddleware} from '../../libs/rest/middleware/validate-dto.middleware.js';
+import {
+  BaseController,
+  DocumentExistsMiddleware,
+  HttpError,
+  HttpMethods, UploadFileMiddleware,
+  ValidateDtoMiddleware, ValidateObjectIdMiddleware
+} from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
 import {CreateUserDto} from './dto/create-user.dto.js';
 import {LoginUserDto} from './dto/login-user.dto.js';
@@ -28,7 +33,7 @@ export class UserController extends BaseController {
 
     this.logger.info('Register routes for UserController...');
 
-    this.addRoute({path: '/:email', method: HttpMethods.Get, handler: this.index});
+    this.addRoute({path: '/:email', method: HttpMethods.Get, handler: this.index}); //TODO: Возможно заменить название на show, и запрашивать по айди
 
     this.addRoute({
       path: '/register',
@@ -48,7 +53,21 @@ export class UserController extends BaseController {
       path: '/:userId',
       method: HttpMethods.Patch,
       handler: this.update,
-      middlewares: [new ValidateDtoMiddleware(UpdateUserDto)]
+      middlewares: [
+        new ValidateDtoMiddleware(UpdateUserDto),
+        new DocumentExistsMiddleware(this.userService, 'User', 'userId')
+      ]
+    });
+
+    this.addRoute({
+      path: '/:userId/avatar',
+      method: HttpMethods.Patch,
+      handler: this.uploadAvatar,
+      middlewares: [
+        new ValidateObjectIdMiddleware('userId'),
+        new DocumentExistsMiddleware(this.userService, 'User', 'userId'),
+        new UploadFileMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'avatar'),
+      ]
     });
   }
 
@@ -110,14 +129,12 @@ export class UserController extends BaseController {
     const {userId} = params;
     const updatedUser = await this.userService.updateById(userId, body);
 
-    if(!updatedUser){
-      throw new HttpError(
-        StatusCodes.BAD_REQUEST,
-        `User with id: «${userId}» not exists`,
-        'UserController'
-      );
-    }
-
     this.ok(res, fillDTO(UserRdo, updatedUser));
+  }
+
+  public async uploadAvatar(req: Request, res: Response) {
+    this.created(res, {
+      filepath: req.file?.path
+    });
   }
 }

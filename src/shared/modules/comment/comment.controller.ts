@@ -1,11 +1,15 @@
 import {Response} from 'express';
-import {StatusCodes} from 'http-status-codes';
 import {inject, injectable} from 'inversify';
 
 import {fillDTO} from '../../helpers/index.js';
 import {Logger} from '../../libs/logger/index.js';
-import {BaseController, HttpError, HttpMethods, ValidateObjectIdMiddleware} from '../../libs/rest/index.js';
-import {ValidateDtoMiddleware} from '../../libs/rest/middleware/validate-dto.middleware.js';
+import {
+  BaseController,
+  DocumentExistsMiddleware,
+  HttpMethods,
+  ValidateObjectIdMiddleware
+} from '../../libs/rest/index.js';
+import {ValidateDtoMiddleware} from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
 import {OfferService} from '../offer/index.js';
 import {CommentService} from './comment-service.interface.js';
@@ -30,6 +34,7 @@ export class CommentController extends BaseController {
       handler: this.create,
       middlewares: [
         new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
         new ValidateDtoMiddleware(CreateCommentDto)
       ]
     });
@@ -39,14 +44,6 @@ export class CommentController extends BaseController {
     {body}: CreateCommentRequest,
     res: Response
   ): Promise<void> {
-
-    if(! await this.offerService.exists(body.offerId)){
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Offer with id: «${body.offerId} not exists»`,
-        'CommentController'
-      );
-    }
 
     const comment = await this.commentService.create(body);
     await this.offerService.incCommentCount(body.offerId);

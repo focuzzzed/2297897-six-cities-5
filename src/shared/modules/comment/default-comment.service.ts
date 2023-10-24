@@ -18,6 +18,10 @@ export class DefaultCommentService implements CommentService{
     @inject(Components.UserModel) private readonly userModel: types.ModelType<OfferEntity>
   ) {}
 
+  public async exists(documentId: string): Promise<boolean> {
+    return (await this.commentModel.exists({_id: documentId}) !== null);
+  }
+
   public async create(dto: CreateCommentDto): Promise<DocumentType<CommentEntity>> {
     const foundedUser = await this.userModel.findById(dto.authorId);
 

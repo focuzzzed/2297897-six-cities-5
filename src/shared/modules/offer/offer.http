@@ -61,7 +61,7 @@ PATCH http://localhost:6000/offers/652fbc1e18db28e48255b8e9 HTTP/1.1
 Content-Type: application/json
 
 {
-  "rating": 0
+  "rating": 2
 }
 
 

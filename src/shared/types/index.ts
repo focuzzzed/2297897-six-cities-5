@@ -2,6 +2,7 @@ export * from './cities.enum.js';
 export * from './comment.interface.js';
 export * from './components.enum.js';
 export * from './conveniences.enum.js';
+export * from './document-exists.interface.js';
 export * from './mock-server-data.types.js';
 export * from './offer.type.js';
 export * from './places-types.enum.js';
