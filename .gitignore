@@ -4,10 +4,12 @@
 /lib/
 /dist/
 /docs/
-/src/mocks
+/src/mocks/
 .idea/*
 
 .DS_Store
 coverage
 *.log
 *.env
+
+/upload/

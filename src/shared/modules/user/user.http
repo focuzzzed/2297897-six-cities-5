@@ -34,8 +34,18 @@ PATCH http://localhost:6000/users/6536d3fe88a91f2474bba958 HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "maxsus@blur.com",
-  "password": "whattheheck"
+  "name": "AirJordanoBruno"
 }
 
 ###
+
+##Отправить изображение
+PATCH http://localhost:6000/users/6536d3fe88a91f2474bba958/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="fileCheck.png"
+Content-Type: image/png
+
+< /home/alien/Изображения/Снимки экрана/fileCheck.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
