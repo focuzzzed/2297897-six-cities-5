@@ -19,7 +19,7 @@ export class DefaultCommentService implements CommentService{
   ) {}
 
   public async exists(documentId: string): Promise<boolean> {
-    return (await this.commentModel.exists({_id: documentId}) !== null);
+    return (!!await this.commentModel.exists({_id: documentId}));
   }
 
   public async create(dto: CreateCommentDto): Promise<DocumentType<CommentEntity>> {

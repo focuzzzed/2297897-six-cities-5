@@ -1,17 +1,17 @@
-export const CreateCommentValidationMessage = {
-  description: {
+export const CREATE_COMMENT_VALIDATION_MESSAGES = {
+  Description: {
     lengthField: 'Min description is 5 chars, max is 1024',
     invalidFormat: 'description is required'
   },
-  rating: {
+  Rating: {
     invalidFormat: 'Rating must be an integer',
     minValue: 'Min rating is 1',
     maxValue: 'Max rating is 5'
   },
-  authorId: {
+  AuthorId: {
     invalidFormat: 'authorId must be a valid id'
   },
-  offerId: {
+  OfferId: {
     invalidFormat: 'offerId must be a valid id'
   },
 } as const;
