@@ -1,60 +1,60 @@
 import {Cities, Conveniences, PlacesTypes} from '../../../types/index.js';
 
-export const CreateOfferValidationMessage = {
-  name: {
+export const CREATE_OFFER_VALIDATION_MESSAGES = {
+  Name: {
     lengthField: 'Min title length is 10, max is 100',
   },
-  description: {
+  Description: {
     lengthField: 'Min description length is 20 chars, max is 1024',
   },
-  postDate: {
+  PostDate: {
     invalidFormat: 'postDate must be a valid ISO8601 date'
   },
-  city: {
+  City: {
     invalid: `City must be ${Object.values(Cities).join(' | ')}}`
   },
-  previewImage: {
+  PreviewImage: {
     maxLength: 'Too long for field «previewImage»'
   },
-  placeImages: {
+  PlaceImages: {
     invalidCount: 'Field «placeImages» must contain 6 images'
   },
-  isPremium: {
+  IsPremium: {
     invalidFormat: 'isPremium must be a boolean'
   },
-  isFavorite: {
+  IsFavorite: {
     invalidFormat: 'isFavorite must be a boolean'
   },
-  rating: {
+  Rating: {
     invalidFormat: 'Rating must be an integer',
     minValue: 'Min rating is 1',
     maxValue: 'Max rating is 5'
   },
-  type: {
+  Type: {
     invalid: `type must be ${Object.values(PlacesTypes).join(' | ')}`,
   },
-  roomsAmount: {
+  RoomsAmount: {
     invalidFormat: 'Rooms amount must be an integer',
     minValue: 'Min rooms is 1',
     maxValue: 'Max rooms is 10'
   },
-  guestsAmount: {
+  GuestsAmount: {
     invalidFormat: 'Guests amount must be an integer',
     minValue: 'Min quests is 1',
     maxValue: 'Max quests is 10'
   },
-  price: {
+  Price: {
     invalidFormat: 'Price must be an integer',
     minValue: 'Min price is 100',
     maxValue: 'Max price is 100000'
   },
-  conveniences:{
+  Conveniences:{
     invalid: `Conveniences must be ${Object.values(Conveniences).join(' | ')}`
   },
-  location: {
+  Location: {
     invalidFormat: 'Location must be in: {latitude: number, longitude: number}'
   },
-  authorId: {
+  AuthorId: {
     invalidFormat: 'authorId must be a valid id'
   }
 } as const;

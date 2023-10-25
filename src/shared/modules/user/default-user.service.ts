@@ -16,7 +16,7 @@ export class DefaultUserService implements UserService {
   ) {}
 
   public async exists(documentId: string): Promise<boolean> {
-    return (await this.userModel.exists({_id: documentId}) !== null);
+    return (!!await this.userModel.exists({_id: documentId}));
   }
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {

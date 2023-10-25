@@ -1,20 +1,20 @@
 import {UserTypes} from '../../../types/index.js';
 
-export const CreateUserValidationMessage = {
-  name: {
+export const CREATE_USER_VALIDATION_MESSAGES = {
+  Name: {
     invalidFormat: 'name is required',
     lengthField: 'min length is 1, max is 15',
   },
-  email: {
+  Email: {
     invalidFormat: 'email must be a valid address'
   },
-  avatarUrl: {
+  AvatarUrl: {
     maxLength: 'Too long for field «avatarUrl»'
   },
-  type: {
+  Type: {
     invalidFormat: `type must be ${Object.values(UserTypes).join(' | ')}`,
   },
-  password: {
+  Password: {
     invalidFormat: 'password is required',
     lengthField: 'min length for password is 6, max is 12'
   },
