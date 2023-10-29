@@ -9,14 +9,16 @@ import {
   BaseController,
   DocumentExistsMiddleware,
   HttpError,
-  HttpMethods, UploadFileMiddleware,
+  HttpMethods, PrivateRouteMiddleware, UploadFileMiddleware,
   ValidateDtoMiddleware, ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
+import {AuthService} from '../auth/index.js';
 import {CreateUserDto} from './dto/create-user.dto.js';
 import {LoginUserDto} from './dto/login-user.dto.js';
 import {UpdateUserDto} from './dto/update-user.dto.js';
 import {LoginUserRequest} from './login-user-request.type.js';
+import {LoggedUserRdo} from './rdo/logged-user.rdo.js';
 import {UserRdo} from './rdo/user.rdo.js';
 import {CreateUserRequest} from './types/create-user-request.type.js';
 import {ParamUserId} from './types/param-userid.types.js';
@@ -28,12 +30,11 @@ export class UserController extends BaseController {
     @inject(Components.Logger) protected readonly logger: Logger,
     @inject(Components.UserService) protected readonly userService: UserService,
     @inject(Components.Config) protected readonly config: Config<RestSchema>,
+    @inject(Components.AuthService) protected readonly authService: AuthService
   ) {
     super(logger);
 
     this.logger.info('Register routes for UserController...');
-
-    this.addRoute({path: '/:email', method: HttpMethods.Get, handler: this.index}); //TODO: Возможно заменить название на show, и запрашивать по айди
 
     this.addRoute({
       path: '/register',
@@ -50,6 +51,15 @@ export class UserController extends BaseController {
     });
 
     this.addRoute({
+      path: '/login',
+      method: HttpMethods.Get,
+      handler: this.checkAuthenticate,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+      ]
+    });
+
+    this.addRoute({
       path: '/:userId',
       method: HttpMethods.Patch,
       handler: this.update,
@@ -63,7 +73,7 @@ export class UserController extends BaseController {
       path: '/:userId/avatar',
       method: HttpMethods.Patch,
       handler: this.uploadAvatar,
-      middlewares: [
+      middlewares: [ //TODO: Только авторизованным?
         new ValidateObjectIdMiddleware('userId'),
         new DocumentExistsMiddleware(this.userService, 'User', 'userId'),
         new UploadFileMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'avatar'),
@@ -71,16 +81,19 @@ export class UserController extends BaseController {
     });
   }
 
-  public async index(req: Request, res: Response): Promise<void> {
-    const user = await this.userService.findByEmail(req.params.email);
 
-    if(!user){
-      this.notFound(res, 'User is not exists');
-      return;
+  public async checkAuthenticate({tokenPayload: {email}}: Request, res: Response){
+    const foundedUser = await this.userService.findByEmail(email);
+
+    if(!foundedUser) {
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        'Unauthorized',
+        'UserController'
+      );
     }
 
-    const responseData = fillDTO(UserRdo, user);
-    this.ok(res, responseData);
+    this.ok(res, fillDTO(UserRdo, foundedUser));
   }
 
   public async create(
@@ -103,24 +116,18 @@ export class UserController extends BaseController {
 
   public async login(
     {body}: LoginUserRequest,
-    _res: Response
+    res: Response
   ) {
-    const existsUser = await this.userService.findByEmail(body.email);
+    const user = await this.authService.verify(body);
+    const token = await this.authService.authenticate(user);
+    const responseData = fillDTO(LoggedUserRdo, {
+      email: user.email,
+      token
+    });
 
-    if(!existsUser){
-      throw new HttpError(
-        StatusCodes.UNAUTHORIZED,
-        `User with email ${body.email} not found.`,
-        'UserController'
-      );
-    }
-
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController'
-    );
+    this.ok(res, responseData);
   }
+
 
   public async update(
     {body, params}: Request<ParamUserId, unknown, UpdateUserDto>,

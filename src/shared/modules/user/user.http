@@ -49,3 +49,11 @@ Content-Type: image/png
 
 < /home/alien/Изображения/Снимки экрана/fileCheck.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+##Проверить аутентификацию
+GET http://localhost:6000/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImYubWVya3VyeUBxdWVlbi5jb20iLCJuYW1lIjoiS2lsbGVyUXVlZW4iLCJpZCI6IjY1MzAzNjM4MmI4OTE1N2M0MzAzMmM1OSIsImlhdCI6MTY5ODYwNTkyNiwiZXhwIjoxNjk4Nzc4NzI2fQ.wlhlaJJs7-EgF-6XiTFZ0bqrmGcRZV7FJ7IuNB6VoEs
+
+###

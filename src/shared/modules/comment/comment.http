@@ -1,12 +1,13 @@
 # Комментарии
 ## Создание комментария
 POST http://localhost:6000/comments/652fbc1e18db28e48255b8e9 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImYubWVya3VyeUBxdWVlbi5jb20iLCJuYW1lIjoiS2lsbGVyUXVlZW4iLCJpZCI6IjY1MzAzNjM4MmI4OTE1N2M0MzAzMmM1OSIsImlhdCI6MTY5ODYwMTE2MSwiZXhwIjoxNjk4NzczOTYxfQ.-tiDOGXBwWp1Wobd7HlHOnUEkbxN5JyZmx4XzkC7bbg
 Content-Type: application/json
 
+
 {
-  "description": "fourth five six sevenOne two three ",
+  "description": "This is test comment",
   "rating": 5,
-  "authorId": "652fbc1d18db28e48255b8d6",
   "offerId": "652fbc1e18db28e48255b8e9"
 }
 

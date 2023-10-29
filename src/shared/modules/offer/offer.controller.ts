@@ -5,7 +5,7 @@ import {fillDTO} from '../../helpers/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {
   BaseController, DocumentExistsMiddleware,
-  HttpMethods, ValidateObjectIdMiddleware
+  HttpMethods, PrivateRouteMiddleware, ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
 import {ValidateDtoMiddleware} from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
@@ -35,7 +35,10 @@ export class OfferController extends BaseController {
       path: '/',
       method: HttpMethods.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDto)
+      ]
     });
 
     this.addRoute({
@@ -93,10 +96,10 @@ export class OfferController extends BaseController {
   }
 
   public async create(
-    {body}: CreateOfferRequest,
+    {body, tokenPayload}: CreateOfferRequest,
     res: Response
   ) {
-    const result = await this.offerService.create(body);
+    const result = await this.offerService.create({...body, authorId: tokenPayload.id });
     const offer = await this.offerService.findById(result.id);
 
     this.created(res, fillDTO(OfferRdo, offer));
