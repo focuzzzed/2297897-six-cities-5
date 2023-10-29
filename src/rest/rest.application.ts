@@ -21,6 +21,7 @@ export class RestApplication {
     @inject(Components.CommentController) private readonly commentController: Controller,
     @inject(Components.OfferController) private readonly offerController: Controller,
     @inject(Components.ExceptionFilter) private readonly defaultExceptionFilter: ExceptionFilter,
+    @inject(Components.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilter,
   ) {}
 
   private initDb() {
@@ -55,6 +56,7 @@ export class RestApplication {
   }
 
   private async initExceptionFilter() {
+    this.server.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
     this.server.use(this.defaultExceptionFilter.catch.bind(this.defaultExceptionFilter));
   }
 
