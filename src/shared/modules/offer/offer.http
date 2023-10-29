@@ -7,10 +7,11 @@ Content-Type: application/json
 
 ## Создать новое предложение
 POST http://localhost:6000/offers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImYubWVya3VyeUBxdWVlbi5jb20iLCJuYW1lIjoiS2lsbGVyUXVlZW4iLCJpZCI6IjY1MzAzNjM4MmI4OTE1N2M0MzAzMmM1OSIsImlhdCI6MTY5ODYwMTE2MSwiZXhwIjoxNjk4NzczOTYxfQ.-tiDOGXBwWp1Wobd7HlHOnUEkbxN5JyZmx4XzkC7bbg
 Content-Type: application/json
 
 {
-  "name": "Late Caves for weekends",
+  "name": "Ali! Delete this!!!1231qsdqwe",
   "description": "Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!!",
   "postDate": "2023-09-18T18:05:00Z",
   "city": "Paris",
@@ -35,7 +36,6 @@ Content-Type: application/json
     "Washer",
     "Towels"
   ],
-  "authorId": "652fbc1d18db28e48255b8d6",
   "location": {
     "longitude": 12.133242,
     "latitude": 1.1234562

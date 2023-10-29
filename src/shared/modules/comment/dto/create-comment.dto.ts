@@ -13,7 +13,6 @@ export class CreateCommentDto {
   @Max(COMMENT_CONSTANT_VALUES.Rating.maxValue, {message: CREATE_COMMENT_VALIDATION_MESSAGES.Rating.minValue})
   public rating: number;
 
-  @IsMongoId({message: CREATE_COMMENT_VALIDATION_MESSAGES.AuthorId.invalidFormat})
   public authorId: string;
 
   @IsMongoId({message: CREATE_COMMENT_VALIDATION_MESSAGES.OfferId.invalidFormat})

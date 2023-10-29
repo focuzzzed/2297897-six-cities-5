@@ -1,7 +1,7 @@
 import {Type} from 'class-transformer';
 import {
   ArrayMaxSize, ArrayMinSize, ArrayNotEmpty, IsArray,
-  IsBoolean, IsDateString, IsEnum, IsInt, IsMongoId, Length,
+  IsBoolean, IsDateString, IsEnum, IsInt, Length,
   Max, MaxLength, Min, ValidateNested
 } from 'class-validator';
 
@@ -68,6 +68,5 @@ export class CreateOfferDto {
   @Type(() => OfferCoordinatesDto)
   public location: OfferCoordinatesDto;
 
-  @IsMongoId({message: CREATE_OFFER_VALIDATION_MESSAGES.AuthorId.invalidFormat})
-  public authorId: string;
+  public authorId?: string;
 }
