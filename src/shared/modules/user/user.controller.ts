@@ -171,14 +171,14 @@ export class UserController extends BaseController {
     const user = await this.userService.findByEmail(email);
     if(!user){
       throw new HttpError(
-        StatusCodes.INTERNAL_SERVER_ERROR,
+        StatusCodes.NOT_FOUND,
         'User undefined',
         'UserController',
       );
     }
 
     const favorites = new Set(user.favoriteOffers.map((offer) => offer.toString()));
-    console.log(favorites);
+
     if(body.isFavorite){
       favorites.add(body.offerId);
     } else {
