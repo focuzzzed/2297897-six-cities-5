@@ -1,4 +1,4 @@
-import {IsEmail, IsEnum, IsOptional, IsString, Length, MaxLength} from 'class-validator';
+import {IsArray, IsEmail, IsEnum, IsOptional, IsString, Length, MaxLength} from 'class-validator';
 
 import {UserTypes} from '../../../types/index.js';
 import {USER_CONSTANT_VALUES} from '../user.constant.js';
@@ -22,4 +22,7 @@ export class CreateUserDto {
   @IsString({message: CREATE_USER_VALIDATION_MESSAGES.Password.invalidFormat})
   @Length(USER_CONSTANT_VALUES.Password.minLength, USER_CONSTANT_VALUES.Password.maxLength, {message: CREATE_USER_VALIDATION_MESSAGES.Password.lengthField})
   public password: string;
+
+  @IsArray({message: CREATE_USER_VALIDATION_MESSAGES.FavoriteOffers.invalidFormat})
+  public favoriteOffers: [];
 }

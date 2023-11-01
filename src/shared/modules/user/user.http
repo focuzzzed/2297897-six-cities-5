@@ -10,10 +10,11 @@ POST http://localhost:6000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "BeautifulMaxim",
-  "email": "maxim@placebo.com",
+  "name": "ClutchSek",
+  "email": "green@gmail.com",
   "type": "обычный",
-  "password": "beautifulmax"
+  "password": "gold12",
+  "favoriteOffers": []
 }
 
 ###
@@ -23,14 +24,14 @@ POST http://localhost:6000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "f.merkury@queen.com",
-  "password": "theshowmustgooooooon"
+  "email": "green@gmail.com",
+  "password": "gold12"
 }
 
 ###
 
 ##Обновить информацию о пользователе
-PATCH http://localhost:6000/users/6536d3fe88a91f2474bba958 HTTP/1.1
+PATCH http://localhost:6000/users/6542788fb2ebbcd60fa229ec HTTP/1.1
 Content-Type: application/json
 
 {
@@ -54,6 +55,18 @@ Content-Type: image/png
 
 ##Проверить аутентификацию
 GET http://localhost:6000/users/login HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImYubWVya3VyeUBxdWVlbi5jb20iLCJuYW1lIjoiS2lsbGVyUXVlZW4iLCJpZCI6IjY1MzAzNjM4MmI4OTE1N2M0MzAzMmM1OSIsImlhdCI6MTY5ODYwNTkyNiwiZXhwIjoxNjk4Nzc4NzI2fQ.wlhlaJJs7-EgF-6XiTFZ0bqrmGcRZV7FJ7IuNB6VoEs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImJ1Z0Bkb250ZmVhdC5jb20iLCJuYW1lIjoiUUF0ZXN0RnJlYWsiLCJpZCI6IjY1NDI3ODhmYjJlYmJjZDYwZmEyMjllYyIsImlhdCI6MTY5ODg1NTA1OSwiZXhwIjoxNjk5MDI3ODU5fQ.8QnZLPtrI_HVCeWloDH11isybxnUN2k5kzL89f2IFIU
+
+###
+
+##Добавить предложение в избранное
+PUT http://localhost:6000/users/favorites
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
+Content-Type: application/json
+
+{
+  "offerId": "654278662c6f94b5eeac4bb1",
+  "isFavorite": true
+}
 
 ###
