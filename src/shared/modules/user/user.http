@@ -65,7 +65,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsI
 Content-Type: application/json
 
 {
-  "offerId": "654278662c6f94b5eeac4bb1",
+  "offerId": "654278662c6f94b5eeac4bbf",
   "isFavorite": true
 }
 

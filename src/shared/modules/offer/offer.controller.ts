@@ -83,14 +83,19 @@ export class OfferController extends BaseController {
     });
   }
 
-  public async index(_req: Request, res: Response) {
-    const offers = await this.offerService.find();
+  public async index({tokenPayload}: Request, res: Response) {
+    const offers = tokenPayload
+      ? await this.offerService.find(undefined, tokenPayload.id)
+      : await this.offerService.find();
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
-  public async show({params}: Request<ParamOfferId>, res: Response) {
+  public async show({params, tokenPayload}: Request<ParamOfferId>, res: Response) {
     const {offerId} = params;
-    const offer = await this.offerService.findById(offerId);
+
+    const offer = tokenPayload
+      ? await this.offerService.findById(offerId, tokenPayload.id)
+      : await this.offerService.findById(offerId);
 
     this.ok(res, fillDTO(OfferRdo, offer));
   }
