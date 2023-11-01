@@ -18,4 +18,7 @@ export const CREATE_USER_VALIDATION_MESSAGES = {
     invalidFormat: 'password is required',
     lengthField: 'min length for password is 6, max is 12'
   },
+  FavoriteOffers: {
+    invalidFormat: 'favorite offers field must be an array'
+  }
 } as const;
