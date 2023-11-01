@@ -1,6 +1,7 @@
 #Предложения
 ## Получить список всех предложений
 GET http://localhost:6000/offers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
 Content-Type: application/json
 
 ###
@@ -45,7 +46,8 @@ Content-Type: application/json
 ###
 
 ##Показать предложение
-GET http://localhost:6000/offers/652fbc1e18db28e48255b8e9 HTTP/1.1
+GET http://localhost:6000/offers/654278662c6f94b5eeac4bab HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
 Content-Type: application/json
 
 ###

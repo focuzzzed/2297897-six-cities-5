@@ -1,14 +1,14 @@
 # Комментарии
 ## Создание комментария
-POST http://localhost:6000/comments/652fbc1e18db28e48255b8e9 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImYubWVya3VyeUBxdWVlbi5jb20iLCJuYW1lIjoiS2lsbGVyUXVlZW4iLCJpZCI6IjY1MzAzNjM4MmI4OTE1N2M0MzAzMmM1OSIsImlhdCI6MTY5ODYwMTE2MSwiZXhwIjoxNjk4NzczOTYxfQ.-tiDOGXBwWp1Wobd7HlHOnUEkbxN5JyZmx4XzkC7bbg
+POST http://localhost:6000/comments/654278662c6f94b5eeac4bab HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
 Content-Type: application/json
 
 
 {
   "description": "This is test comment",
-  "rating": 5,
-  "offerId": "652fbc1e18db28e48255b8e9"
+  "rating": 3,
+  "offerId": "654278662c6f94b5eeac4bab"
 }
 
 ###
