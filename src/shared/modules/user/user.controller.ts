@@ -6,9 +6,13 @@ import {fillDTO} from '../../helpers/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {
-  BaseController, DocumentExistsMiddleware,
-  HttpError, HttpMethods, PrivateRouteMiddleware,
-  UploadFileMiddleware, ValidateDtoMiddleware,
+  BaseController,
+  DocumentExistsMiddleware,
+  HttpError,
+  HttpMethods,
+  PrivateRouteMiddleware,
+  UploadFileMiddleware,
+  ValidateDtoMiddleware,
   ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
@@ -36,6 +40,12 @@ export class UserController extends BaseController {
     super(logger);
 
     this.logger.info('Register routes for UserController...');
+
+    this.addRoute({
+      path: '/:email',
+      method: HttpMethods.Get,
+      handler: this.show,
+    });
 
     this.addRoute({
       path: '/favorites',
@@ -93,10 +103,24 @@ export class UserController extends BaseController {
   }
 
 
-  public async checkAuthenticate({tokenPayload: {email}}: Request, res: Response){
-    const foundedUser = await this.userService.findByEmail(email);
+  public async show({params: {email}}: Request, res: Response) {
+    const user = await this.userService.findByEmail(email);
 
-    if(!foundedUser) {
+    if(!user) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `User, with email: «${email}», not exists`,
+        'UserController'
+      );
+    }
+
+    this.ok(res, fillDTO(UserRdo, user));
+  }
+
+  public async checkAuthenticate({tokenPayload: {email}}: Request, res: Response){
+    const user = await this.userService.findByEmail(email);
+
+    if(!user) {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         'Unauthorized',
@@ -104,7 +128,7 @@ export class UserController extends BaseController {
       );
     }
 
-    this.ok(res, fillDTO(UserRdo, foundedUser));
+    this.ok(res, fillDTO(UserRdo, user));
   }
 
   public async create(
