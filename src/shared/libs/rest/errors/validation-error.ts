@@ -4,9 +4,9 @@ import {ValidationErrorField} from '../types/index.js';
 import {HttpError} from './http-error.js';
 
 export class ValidationError extends HttpError {
-  public details: ValidationErrorField;
+  public details: ValidationErrorField[];
 
-  constructor(message: string, errors: ValidationErrorField) {
+  constructor(message: string, errors: ValidationErrorField[]) {
     super(StatusCodes.BAD_REQUEST, message);
     this.details = errors;
   }

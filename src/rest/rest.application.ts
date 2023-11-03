@@ -20,8 +20,10 @@ export class RestApplication {
     @inject(Components.UserController) private readonly userController: Controller,
     @inject(Components.CommentController) private readonly commentController: Controller,
     @inject(Components.OfferController) private readonly offerController: Controller,
-    @inject(Components.ExceptionFilter) private readonly defaultExceptionFilter: ExceptionFilter,
+    @inject(Components.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter,
     @inject(Components.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilter,
+    @inject(Components.HttpExceptionFilter) private readonly httpExceptionFilter: ExceptionFilter,
+    @inject(Components.ValidationExceptionFilter) private readonly validationExceptionFilter: ExceptionFilter,
   ) {}
 
   private initDb() {
@@ -60,7 +62,9 @@ export class RestApplication {
 
   private async initExceptionFilter() {
     this.server.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
-    this.server.use(this.defaultExceptionFilter.catch.bind(this.defaultExceptionFilter));
+    this.server.use(this.validationExceptionFilter.catch.bind(this.validationExceptionFilter));
+    this.server.use(this.httpExceptionFilter.catch.bind(this.httpExceptionFilter));
+    this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
 
   public async init(): Promise<void> {
@@ -72,7 +76,7 @@ export class RestApplication {
 
     this.logger.info('Initializing app-level middleware...');
     await this.initMiddleware();
-    this.logger.info('Controller initialization completed');
+    this.logger.info('App-level middleware initialization completed');
 
     this.logger.info('Initializing controllers...');
     await this.initControllers();

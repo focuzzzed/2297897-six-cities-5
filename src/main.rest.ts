@@ -22,4 +22,4 @@ async function bootstrap(): Promise<void> {
   await application.init();
 }
 
-bootstrap();
+bootstrap().then();
