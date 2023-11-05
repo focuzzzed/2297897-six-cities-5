@@ -48,3 +48,7 @@ export function reduceValidationErrors(errors: ValidationError[]): ValidationErr
     messages: constraints ? Object.values(constraints) : []
   }));
 }
+
+export function getFullServerPath(protocol: string, host: string, port: string): string {
+  return `${protocol}://${host}:${port}`;
+}
