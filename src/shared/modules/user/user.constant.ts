@@ -11,3 +11,5 @@ export const USER_CONSTANT_VALUES = {
     maxLength: 12,
   }
 } as const;
+
+export const DEFAULT_AVATAR_FILE_NAME = 'default-avatar.svg';

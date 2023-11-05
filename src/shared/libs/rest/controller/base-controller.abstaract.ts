@@ -1,25 +1,25 @@
 import {Response, Router} from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import {StatusCodes} from 'http-status-codes';
-import {injectable} from 'inversify';
+import {inject, injectable} from 'inversify';
 
+import {Components} from '../../../types/index.js';
 import {Logger} from '../../logger/index.js';
+import {PathTransformer} from '../transform/path-transformer.js';
 import {Route} from '../types/index.js';
 import {DEFAULT_CONTENT_TYPE} from './base-controller.constant.js';
 import {Controller} from './controller.interface.js';
 
 @injectable()
 export abstract class BaseController implements Controller {
-  private readonly _router: Router;
+  public readonly router: Router = Router();
+
+  @inject(Components.PathTransformer)
+  private pathTransformer: PathTransformer;
 
   constructor(
     protected readonly logger: Logger
   ) {
-    this._router = Router();
-  }
-
-  get router() {
-    return this._router;
   }
 
   public addRoute(route: Route) {
@@ -30,15 +30,16 @@ export abstract class BaseController implements Controller {
 
     const allHandlers = middlewareHandlers ? [...middlewareHandlers, wrapperAsyncHandler] : wrapperAsyncHandler;
 
-    this._router[route.method](route.path, allHandlers);
+    this.router[route.method](route.path, allHandlers);
     this.logger.info(`Route path registered: ${route.method.toUpperCase()} ${route.path}`);
   }
 
   public send<T>(res: Response, statusCode: number, data: T): void {
+    const modifiedData = this.pathTransformer.execute(data as Record<string, unknown>);
     res
       .type(DEFAULT_CONTENT_TYPE)
       .status(statusCode)
-      .json(data);
+      .json(modifiedData);
   }
 
   public created<T>(res: Response, data: T) {

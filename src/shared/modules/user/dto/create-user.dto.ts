@@ -1,4 +1,4 @@
-import {IsArray, IsEmail, IsEnum, IsOptional, IsString, Length, MaxLength} from 'class-validator';
+import {IsArray, IsEmail, IsEnum, IsString, Length} from 'class-validator';
 
 import {UserTypes} from '../../../types/index.js';
 import {USER_CONSTANT_VALUES} from '../user.constant.js';
@@ -11,10 +11,6 @@ export class CreateUserDto {
 
   @IsEmail({}, {message: CREATE_USER_VALIDATION_MESSAGES.Email.invalidFormat})
   public email: string;
-
-  @MaxLength(USER_CONSTANT_VALUES.AvatarUrl.maxLength, {message: CREATE_USER_VALIDATION_MESSAGES.AvatarUrl.maxLength})
-  @IsOptional()
-  public avatarUrl?: string;
 
   @IsEnum(UserTypes, {message: CREATE_USER_VALIDATION_MESSAGES.Type.invalidFormat})
   public type: UserTypes;
