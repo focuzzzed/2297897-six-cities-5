@@ -8,7 +8,7 @@ import {Logger} from '../../libs/logger/index.js';
 import {
   BaseController, DocumentExistsMiddleware, HttpError,
   HttpMethods, PrivateRouteMiddleware,
-  UploadFileMiddleware, ValidateDtoMiddleware,
+  UploadFileMiddleware, UploadFilesMiddleware, ValidateDtoMiddleware,
   ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
@@ -106,7 +106,7 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
-        new UploadFileMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'placeImages'),
+        new UploadFilesMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'placeImages'),
       ]
     });
   }
@@ -193,6 +193,6 @@ export class OfferController extends BaseController {
     const updateDto = {placeImages: files.map((file) => file.filename)};
     await this.offerService.updateById(offerId, updateDto);
 
-    this.created(res, fillDTO(UploadPlaceImagesRdo, updateDto)); //TODO: Проверить на сервере
+    this.created(res, fillDTO(UploadPlaceImagesRdo, updateDto));
   }
 }
