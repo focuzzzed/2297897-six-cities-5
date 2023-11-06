@@ -100,34 +100,33 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0g
 Content-Disposition: form-data; name="placeImages"; filename="previewTest.png"
 Content-Type: image/png
 
-data:image/png;base64, [BASE64_ENCODED_IMAGE_1]
+/home/alien/Изображения/previewTest.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="placeImages"; filename="previewTest2.png"
 Content-Type: image/png
 
-data:image/png;base64, [BASE64_ENCODED_IMAGE_2]
+/home/alien/Изображения/previewTest2.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="placeImages"; filename="previewTest3.png"
 Content-Type: image/png
 
-data:image/png;base64, [BASE64_ENCODED_IMAGE_3]
+/home/alien/Изображения/previewTest3.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="placeImages"; filename="previewTest4.png"
 Content-Type: image/png
 
-data:image/png;base64, [BASE64_ENCODED_IMAGE_4]
+/home/alien/Изображения/previewTest4.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="placeImages"; filename="previewTest5.png"
 Content-Type: image/png
 
-data:image/png;base64, [BASE64_ENCODED_IMAGE_5]
+/home/alien/Изображения/previewTest5.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="placeImages"; filename="previewTest6.png"
 Content-Type: image/png
 
-data:image/png;base64, [BASE64_ENCODED_IMAGE_6]
+/home/alien/Изображения/previewTest6.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
 
-###

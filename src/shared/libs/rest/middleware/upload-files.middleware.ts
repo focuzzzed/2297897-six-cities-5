@@ -7,7 +7,7 @@ import multer, {diskStorage} from 'multer';
 import {filterUploadMiddlewareFile} from '../../../helpers/index.js';
 import {Middleware} from './middleware.interface.js';
 
-export class UploadFileMiddleware implements Middleware {
+export class UploadFilesMiddleware implements Middleware {
   constructor(
     private uploadDirectory: string,
     private fieldName: string,
@@ -23,13 +23,13 @@ export class UploadFileMiddleware implements Middleware {
       },
     });
 
-    const uploadSingleFileMiddleware = multer({
+    const uploadMultipleFilesMiddleware = multer({
       storage,
       fileFilter: filterUploadMiddlewareFile
     })
-      .single(this.fieldName);
+      .array(this.fieldName, 6);
 
-    uploadSingleFileMiddleware(req, res, next);
+    uploadMultipleFilesMiddleware(req, res, next);
 
   }
 }
