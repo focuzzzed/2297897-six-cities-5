@@ -9,16 +9,24 @@ import {DEFAULT_STATIC_IMAGES, STATIC_RESOURCE_FIELDS} from './path-transformer.
 
 
 function isObject (value: unknown): value is Record<string, object> {
-  return (typeof value === 'object' && value !== null);
+  return (typeof value === 'object' && value !== null && !Array.isArray(value));
 }
 
 
 @injectable()
 export class PathTransformer {
+  private readonly serverProtocol: string;
+  private readonly serverHost: string;
+  private readonly serverPort: string;
+
   constructor(
     @inject(Components.Logger) private readonly logger: Logger,
     @inject(Components.Config) private readonly config: Config<RestSchema>,
   ) {
+    this.serverProtocol = this.config.get('PROTOCOL');
+    this.serverHost = this.config.get('HOST');
+    this.serverPort = this.config.get('PORT');
+
     this.logger.info('Path transformer initialized!');
   }
 
@@ -28,6 +36,11 @@ export class PathTransformer {
 
   private isStaticProperty(property: string) {
     return STATIC_RESOURCE_FIELDS.includes(property);
+  }
+
+  private transform(value: string) {
+    const rootPath = this.hasDefaultImage(value) ? STATIC_ROUTES.FILES : STATIC_ROUTES.UPLOAD;
+    return `${getFullServerPath(this.serverProtocol, this.serverHost, this.serverPort)}${rootPath}/${value}`;
   }
 
   public execute(data: Record<string, unknown>): Record<string, unknown>{
@@ -44,16 +57,16 @@ export class PathTransformer {
             continue;
           }
 
-          if (this.isStaticProperty(key) && typeof value === 'string') {
-            const staticPath = STATIC_ROUTES.FILES;
-            const uploadPath = STATIC_ROUTES.UPLOAD;
+          if (this.isStaticProperty(key)) {
+            if (typeof value === 'string'){
+              current[key] = this.transform(value);
+            }
 
-            const serverProtocol = this.config.get('PROTOCOL');
-            const serverHost = this.config.get('HOST');
-            const serverPort = this.config.get('PORT');
-
-            const rootPath = this.hasDefaultImage(value) ? staticPath : uploadPath;
-            current[key] = `${getFullServerPath(serverProtocol, serverHost, serverPort)}${rootPath}/${value}`;
+            if (Array.isArray(value)) {
+              current[key] = value.map(
+                (currentImage) => typeof currentImage === 'string' ? this.transform(currentImage) : currentImage
+              );
+            }
           }
         }
       }

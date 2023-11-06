@@ -1,14 +1,15 @@
 #Предложения
 ## Получить список всех предложений
 GET http://localhost:6000/offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MjkyNjY4LCJleHAiOjE2OTk0NjU0Njh9.1b7U2LKIp4AE9GtGOD8TxkpyVfrnY_RZ2h2F_jjWOQw
+
 Content-Type: application/json
 
 ###
 
 ## Создать новое предложение
 POST http://localhost:6000/offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImYubWVya3VyeUBxdWVlbi5jb20iLCJuYW1lIjoiS2lsbGVyUXVlZW4iLCJpZCI6IjY1MzAzNjM4MmI4OTE1N2M0MzAzMmM1OSIsImlhdCI6MTY5ODYwMTE2MSwiZXhwIjoxNjk4NzczOTYxfQ.-tiDOGXBwWp1Wobd7HlHOnUEkbxN5JyZmx4XzkC7bbg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MjE3NTQxLCJleHAiOjE2OTkzOTAzNDF9.4q-8CXakVJyFKTeMNqWrTEgut4JGvpunq1gdF9h2fuo
 Content-Type: application/json
 
 {
@@ -16,18 +17,18 @@ Content-Type: application/json
   "description": "Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!!",
   "postDate": "2023-09-18T18:05:00Z",
   "city": "Paris",
-  "previewImage": "batman.com/avatar",
-  "placeImages": [
-    "Batman",
-    "Bruce wayne",
-    "BatGirl",
-    "Robin",
-    "Batman(Beach Series)",
-    "Lego Batman"
-  ],
   "isPremium": true,
   "isFavorite": false,
   "rating": 1,
+  "previewImage": "placeImage-01.jpg",
+  "placeImages": [
+    "placeImage-01.jpg",
+    "placeImage-02.jpg",
+    "placeImage-03.jpg",
+    "placeImage-04.jpg",
+    "placeImage-05.jpg",
+    "placeImage-06.jpg"
+  ],
   "type": "House",
   "roomsAmount": 5,
   "guestsAmount": 9,
@@ -46,14 +47,14 @@ Content-Type: application/json
 ###
 
 ##Показать предложение
-GET http://localhost:6000/offers/654278662c6f94b5eeac4bab HTTP/1.1
+GET http://localhost:6000/offers/65480c2ae2848c0e6efaeaec HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
 Content-Type: application/json
 
 ###
 
 ##Удалить предложение
-DELETE http://localhost:6000/offers/6535820522f34085afeeb31f HTTP/1.1
+DELETE http://localhost:6000/offers/654814eeb4322782a9b6136d HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -66,7 +67,6 @@ Content-Type: application/json
   "rating": 5
 }
 
-
 ###
 
 
@@ -74,5 +74,60 @@ Content-Type: application/json
 
 GET http://localhost:6000/offers/652fbc1e18db28e48255b8e9/comments HTTP/1.1
 Content-Type: application/json
+
+###
+
+##Обновление превью предложения
+PATCH http://localhost:6000/offers/654278662c6f94b5eeac4bab/preview HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MjkyNjY4LCJleHAiOjE2OTk0NjU0Njh9.1b7U2LKIp4AE9GtGOD8TxkpyVfrnY_RZ2h2F_jjWOQw
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="previewImage"; filename="previewTest.png"
+Content-Type: image/png
+
+< /home/alien/Изображения/previewTest.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+##Обновление изображений предложения
+PATCH http://localhost:6000/offers/654278662c6f94b5eeac4bab/images HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MjkyNjY4LCJleHAiOjE2OTk0NjU0Njh9.1b7U2LKIp4AE9GtGOD8TxkpyVfrnY_RZ2h2F_jjWOQw
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="placeImages"; filename="previewTest.png"
+Content-Type: image/png
+
+data:image/png;base64, [BASE64_ENCODED_IMAGE_1]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="placeImages"; filename="previewTest2.png"
+Content-Type: image/png
+
+data:image/png;base64, [BASE64_ENCODED_IMAGE_2]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="placeImages"; filename="previewTest3.png"
+Content-Type: image/png
+
+data:image/png;base64, [BASE64_ENCODED_IMAGE_3]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="placeImages"; filename="previewTest4.png"
+Content-Type: image/png
+
+data:image/png;base64, [BASE64_ENCODED_IMAGE_4]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="placeImages"; filename="previewTest5.png"
+Content-Type: image/png
+
+data:image/png;base64, [BASE64_ENCODED_IMAGE_5]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="placeImages"; filename="previewTest6.png"
+Content-Type: image/png
+
+data:image/png;base64, [BASE64_ENCODED_IMAGE_6]
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
 
 ###

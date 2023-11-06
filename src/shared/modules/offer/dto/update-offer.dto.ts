@@ -14,7 +14,7 @@ import {OfferCoordinatesDto} from './offer-coordinates.dto.js';
 export class UpdateOfferDto {
   @IsOptional()
   @Length(OFFER_CONSTANT_VALUES.Name.minLength, OFFER_CONSTANT_VALUES.Name.maxLength, {message: CREATE_OFFER_VALIDATION_MESSAGES.Name.lengthField})
-  public name: string;
+  public name?: string;
 
   @IsOptional()
   @Length(OFFER_CONSTANT_VALUES.Description.minLength, OFFER_CONSTANT_VALUES.Description.maxLength, {message: CREATE_OFFER_VALIDATION_MESSAGES.Description.lengthField})

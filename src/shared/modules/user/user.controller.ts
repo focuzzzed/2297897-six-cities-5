@@ -23,6 +23,7 @@ import {LoginUserDto} from './dto/login-user.dto.js';
 import {UpdateUserDto} from './dto/update-user.dto.js';
 import {LoginUserRequest} from './login-user-request.type.js';
 import {LoggedUserRdo} from './rdo/logged-user.rdo.js';
+import {UploadUserAvatarRdo} from './rdo/upload-user-avatar.rdo.js';
 import {UserRdo} from './rdo/user.rdo.js';
 import {CreateUserRequest} from './types/create-user-request.type.js';
 import {ParamUserId} from './types/param-userid.types.js';
@@ -95,6 +96,7 @@ export class UserController extends BaseController {
       method: HttpMethods.Patch,
       handler: this.uploadAvatar,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('userId'),
         new DocumentExistsMiddleware(this.userService, 'User', 'userId'),
         new UploadFileMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'avatar'),
@@ -155,10 +157,8 @@ export class UserController extends BaseController {
   ) {
     const user = await this.authService.verify(body);
     const token = await this.authService.authenticate(user);
-    const responseData = fillDTO(LoggedUserRdo, {
-      email: user.email,
-      token
-    });
+
+    const responseData = fillDTO(LoggedUserRdo, Object.assign(user, {token}));
 
     this.ok(res, responseData);
   }
@@ -174,10 +174,19 @@ export class UserController extends BaseController {
     this.ok(res, fillDTO(UserRdo, updatedUser));
   }
 
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path
-    });
+  public async uploadAvatar({params, file}: Request, res: Response) {
+    if(!file) {
+      throw new HttpError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'No file selected for upload',
+        'UserController',
+      );
+    }
+
+    const {userId} = params;
+    const updateDto = {avatarUrl: file.filename};
+    await this.userService.updateById(userId, updateDto);
+    this.created(res, fillDTO(UploadUserAvatarRdo, updateDto));
   }
 
   public async updateFavorites(

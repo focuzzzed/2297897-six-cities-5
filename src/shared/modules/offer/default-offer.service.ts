@@ -22,16 +22,6 @@ export class DefaultOfferService implements OfferService {
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
-    const foundedUser = await this.userModel.findById(dto.authorId);
-
-    if(!foundedUser){
-      throw new HttpError(
-        StatusCodes.BAD_REQUEST,
-        `User with id: «${dto.authorId}» not exists`,
-        'DefaultOfferService'
-      );
-    }
-
     const result = await this.offerModel.create(dto);
 
     this.logger.info(`New offer created: ${dto.name}`);

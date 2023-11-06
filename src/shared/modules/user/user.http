@@ -39,15 +39,16 @@ Content-Type: application/json
 
 ###
 
-##Отправить изображение
-PATCH http://localhost:6000/users/6536d3fe88a91f2474bba958/avatar HTTP/1.1
+##Обновить аватар пользователя
+PATCH http://localhost:6000/users/6547f4b941c78f73a835b1d5/avatar HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MzAwNzMzLCJleHAiOjE2OTk0NzM1MzN9.HOeibE9I8oJTYkhMGwtiDXSr5RmZNXVTXZIyTwSW3Kc
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="avatar"; filename="fileCheck.png"
+Content-Disposition: form-data; name="avatar"; filename="avatar.png"
 Content-Type: image/png
 
-< /home/alien/Изображения/Снимки экрана/fileCheck.png
+< /home/alien/Изображения/avatar.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
