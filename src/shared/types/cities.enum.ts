@@ -8,3 +8,8 @@ export enum Cities {
 }
 
 export type Coordinates = {latitude: number, longitude: number};
+
+export type FullOfferCity = {
+  name: Cities,
+  cityCoordinates: Coordinates,
+};
