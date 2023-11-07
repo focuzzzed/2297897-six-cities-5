@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import {inject, injectable} from 'inversify';
 
-import {fillDTO} from '../../helpers/index.js';
+import {CITIES_COORDINATES, fillDTO} from '../../helpers/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {
@@ -17,6 +17,7 @@ import {CommentRdo} from '../comment/rdo/comment.rdo.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';
 import {UpdateOfferDto} from './dto/update-offer.dto.js';
 import {OfferService} from './offer-service.interface.js';
+import {FullOfferRdo} from './rdo/full-offer.rdo.js';
 import {OfferRdo} from './rdo/offer.rdo.js';
 import {UploadPlaceImagesRdo} from './rdo/upload-place-images.rdo.js';
 import {UploadPreviewImageRdo} from './rdo/upload-preview-image.rdo.js';
@@ -125,7 +126,9 @@ export class OfferController extends BaseController {
       ? await this.offerService.findById(offerId, tokenPayload.id)
       : await this.offerService.findById(offerId);
 
-    this.ok(res, fillDTO(OfferRdo, offer));
+    const offerForShow = {...offer, city: {name: offer!.city, cityCoordinates: CITIES_COORDINATES[offer!.city]}};
+
+    this.ok(res, fillDTO(FullOfferRdo, offerForShow));
   }
 
   public async create(
@@ -134,8 +137,9 @@ export class OfferController extends BaseController {
   ) {
     const result = await this.offerService.create({...body, authorId: tokenPayload.id });
     const offer = await this.offerService.findById(result.id);
+    const createdOffer = {...offer, city: {name: offer!.city, cityCoordinates: CITIES_COORDINATES[offer!.city]}};
 
-    this.created(res, fillDTO(OfferRdo, offer));
+    this.created(res, fillDTO(FullOfferRdo, createdOffer));
   }
 
   public async delete(
@@ -153,9 +157,9 @@ export class OfferController extends BaseController {
     res: Response
   ){
     const {offerId} = params;
-    const updatedOffer = await this.offerService.updateById(offerId, body);
-
-    this.ok(res, fillDTO(OfferRdo, updatedOffer));
+    const offer = await this.offerService.updateById(offerId, body);
+    const updatedOffer = {...offer, city: {name: offer!.city, cityCoordinates: CITIES_COORDINATES[offer!.city]}};
+    this.ok(res, fillDTO(FullOfferRdo, updatedOffer));
   }
 
   public async getComments({params}: Request<ParamOfferId>, res: Response) {

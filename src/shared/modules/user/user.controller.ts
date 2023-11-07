@@ -104,7 +104,6 @@ export class UserController extends BaseController {
     });
   }
 
-
   public async show({params: {email}}: Request, res: Response) {
     const user = await this.userService.findByEmail(email);
 
