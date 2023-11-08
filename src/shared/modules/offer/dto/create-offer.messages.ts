@@ -1,6 +1,6 @@
 import {Cities, Conveniences, PlacesTypes} from '../../../types/index.js';
 
-export const CREATE_OFFER_VALIDATION_MESSAGES = {
+export const CreateOfferValidationMessages = {
   Name: {
     lengthField: 'Min title length is 10, max is 100',
   },

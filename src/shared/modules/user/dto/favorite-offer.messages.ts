@@ -1,4 +1,4 @@
-export const FAVORITE_OFFER_MESSAGES = {
+export const FavoriteOfferValidationMessages = {
   OfferId: {
     invalidFormat: 'offerId must be valid MongoID'
   },

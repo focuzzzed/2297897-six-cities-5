@@ -1,11 +1,11 @@
 import {IsBoolean, IsMongoId} from 'class-validator';
 
-import {FAVORITE_OFFER_MESSAGES} from './favorite-offer.messages.js';
+import {FavoriteOfferValidationMessages} from './favorite-offer.messages.js';
 
 export class FavoriteOfferDto {
-  @IsMongoId({message: FAVORITE_OFFER_MESSAGES.OfferId.invalidFormat})
+  @IsMongoId({message: FavoriteOfferValidationMessages.OfferId.invalidFormat})
   public offerId: string;
 
-  @IsBoolean({message: FAVORITE_OFFER_MESSAGES.IsPremium.invalidFormat})
+  @IsBoolean({message: FavoriteOfferValidationMessages.IsPremium.invalidFormat})
   public isFavorite: boolean;
 }
