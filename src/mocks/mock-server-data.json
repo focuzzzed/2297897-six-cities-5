@@ -22,25 +22,38 @@
       "Admire the futuristic skyline of a sleek metropolis, where architectural marvels narrate stories of ambition and progress."
     ],
     "previewImages": [
-      "paths/preview/previewImage-1.jpg",
-      "paths/preview/previewImage-2.jpg",
-      "paths/preview/previewImage-3.jpg",
-      "paths/preview/previewImage-4.jpg",
-      "paths/preview/previewImage-5.jpg",
-      "paths/preview/previewImage-6.jpg"
+      "placeImage-01.jpg",
+      "placeImage-02.jpg",
+      "placeImage-03.jpg",
+      "placeImage-04.jpg",
+      "placeImage-05.jpg",
+      "placeImage-06.jpg",
+      "placeImage-07.jpg",
+      "placeImage-08.jpg",
+      "placeImage-09.jpg",
+      "placeImage-10.jpg",
+      "placeImage-11.jpg",
+      "placeImage-12.jpg",
+      "placeImage-13.jpg",
+      "placeImage-14.jpg",
+      "placeImage-15.jpg"
     ],
     "placeImages": [
-      "paths/placeImages/placeImage-1.jpg",
-      "paths/placeImages/placeImage-2.jpg",
-      "paths/placeImages/placeImage-3.jpg",
-      "paths/placeImages/placeImage-4.jpg",
-      "paths/placeImages/placeImage-5.jpg",
-      "paths/placeImages/placeImage-6.jpg",
-      "paths/placeImages/placeImage-7.jpg",
-      "paths/placeImages/placeImage-8.jpg",
-      "paths/placeImages/placeImage-9.jpg",
-      "paths/placeImages/placeImage-10.jpg",
-      "paths/placeImages/placeImage-11.jpg"
+      "placeImage-01.jpg",
+      "placeImage-02.jpg",
+      "placeImage-03.jpg",
+      "placeImage-04.jpg",
+      "placeImage-05.jpg",
+      "placeImage-06.jpg",
+      "placeImage-07.jpg",
+      "placeImage-08.jpg",
+      "placeImage-09.jpg",
+      "placeImage-10.jpg",
+      "placeImage-11.jpg",
+      "placeImage-12.jpg",
+      "placeImage-13.jpg",
+      "placeImage-14.jpg",
+      "placeImage-15.jpg"
     ],
     "cities": [
       "Paris",
@@ -85,13 +98,12 @@
       "saints@volution.com"
     ],
     "avatars": [
-      "paths/avatars/avatar-1.jpg",
-      "paths/avatars/avatar-2.jpg",
-      "paths/avatars/avatar-3.jpg",
-      "paths/avatars/avatar-4.jpg",
-      "paths/avatars/avatar-5.jpg",
-      "paths/avatars/avatar-6.jpg",
-      "paths/avatars/avatar-7.jpg"
+      "default-avatar-01.png",
+      "default-avatar-03.png",
+      "default-avatar-05.png",
+      "default-avatar-02.png",
+      "default-avatar-04.png",
+      "default-avatar-06.png"
     ],
     "passwords": [
       "q4R!w8mTz$rn",

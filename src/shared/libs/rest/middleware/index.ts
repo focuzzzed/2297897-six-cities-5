@@ -4,5 +4,6 @@ export * from './parse-token.middleware.js';
 export * from './private-route.middleware.js';
 export * from './upload-file.middleware.js';
 export * from './upload-files.middleware.js';
+export * from './validate-author.middleware.js';
 export * from './validate-dto.middleware.js';
 export * from './validate-objectid.middleware.js';

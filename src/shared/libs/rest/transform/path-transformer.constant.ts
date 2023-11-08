@@ -15,6 +15,12 @@ export const DEFAULT_STATIC_IMAGES = [
   'placeImage-13.jpg',
   'placeImage-14.jpg',
   'placeImage-15.jpg',
+  'default-avatar-01.png',
+  'default-avatar-03.png',
+  'default-avatar-05.png',
+  'default-avatar-02.png',
+  'default-avatar-04.png',
+  'default-avatar-06.png',
 ];
 
 export const STATIC_RESOURCE_FIELDS = [

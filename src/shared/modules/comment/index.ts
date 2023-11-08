@@ -1,3 +1,4 @@
+export * from './comment.constant.js';
 export * from './comment.container.js';
 export * from './comment.controller.js';
 export * from './comment.entity.js';

@@ -8,3 +8,5 @@ export const COMMENT_CONSTANT_VALUES = {
     maxValue: 5,
   },
 } as const;
+
+export const DEFAULT_COMMENT_COUNT = 50;

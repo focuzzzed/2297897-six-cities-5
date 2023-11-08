@@ -1,14 +1,13 @@
 # Комментарии
 ## Создание комментария
-POST http://localhost:6000/comments/654278662c6f94b5eeac4bab HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
+POST http://localhost:6000/comments/654b5b079e0d7757ac041700 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 Content-Type: application/json
 
-
 {
-  "description": "This is test comment",
-  "rating": 3,
-  "offerId": "654278662c6f94b5eeac4bab"
+  "description": "Hello my friends how are you?",
+  "rating": 1,
+  "offerId": "654b5b079e0d7757ac041700"
 }
 
 ###

@@ -1,20 +1,18 @@
 #Предложения
-## Получить список всех предложений
-GET http://localhost:6000/offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MjkyNjY4LCJleHAiOjE2OTk0NjU0Njh9.1b7U2LKIp4AE9GtGOD8TxkpyVfrnY_RZ2h2F_jjWOQw
-
-Content-Type: application/json
+## Получить список всех предложений / или точное количество при указании query параметра
+GET http://localhost:6000/offers?count=5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkwOTM0LCJleHAiOjE2OTk1NjM3MzR9.3VFVmxrHcjv3KP_Hp7A_aPD5pjhjA4qw0ZJ9D33SRgE
 
 ###
 
 ## Создать новое предложение
 POST http://localhost:6000/offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MjE3NTQxLCJleHAiOjE2OTkzOTAzNDF9.4q-8CXakVJyFKTeMNqWrTEgut4JGvpunq1gdF9h2fuo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 Content-Type: application/json
 
 {
-  "name": "Ali! Delete this!!!1231qsdqwe",
-  "description": "Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!! Ali! Delete this!!!",
+  "name": "It is a title for Anon offer",
+  "description": "It is a title for Anon offer. It is a title for Anon offer. It is a title for Anon offer",
   "postDate": "2023-09-18T18:05:00Z",
   "city": "Paris",
   "isPremium": true,
@@ -47,33 +45,31 @@ Content-Type: application/json
 ###
 
 ##Показать предложение
-GET http://localhost:6000/offers/654278662c6f94b5eeac4bcf HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0N2Y0Yjk0MWM3OGY3M2E4MzViMWQ1IiwiaWF0IjoxNjk5MjE3NTQxLCJleHAiOjE2OTkzOTAzNDF9.4q-8CXakVJyFKTeMNqWrTEgut4JGvpunq1gdF9h2fuo
-Content-Type: application/json
+GET http://localhost:6000/offers/654ab0c4c1e580ff691bb0e5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 
 ###
 
 ##Удалить предложение
-DELETE http://localhost:6000/offers/654a945136566c386f88b5d4 HTTP/1.1
-Content-Type: application/json
+DELETE http://localhost:6000/offers/654b5b079e0d7757ac041700 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 
 ###
 
 ##Обновить предложение
-PATCH http://localhost:6000/offers/652fbc1e18db28e48255b8e9 HTTP/1.1
+PATCH http://localhost:6000/offers/654ab0c4c1e580ff691bb0e5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 Content-Type: application/json
 
 {
-  "rating": 5
+  "description": "Amsterdam know is very cool city i this and this know my family and friends"
 }
 
 ###
 
+##Получение списка комментариев по идентификатору предложения
 
-##Получения списка комментариев по идентификатору предложения
-
-GET http://localhost:6000/offers/652fbc1e18db28e48255b8e9/comments HTTP/1.1
-Content-Type: application/json
+GET http://localhost:6000/offers/654b5b079e0d7757ac041700/comments HTTP/1.1
 
 ###
 
@@ -130,3 +126,8 @@ Content-Type: image/png
 
 ###
 
+##Получение списка избранных предложений пользователя
+GET http://localhost:6000/offers/favorites HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkwOTM0LCJleHAiOjE2OTk1NjM3MzR9.3VFVmxrHcjv3KP_Hp7A_aPD5pjhjA4qw0ZJ9D33SRgE
+
+###

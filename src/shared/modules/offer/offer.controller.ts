@@ -2,14 +2,19 @@ import {Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import {inject, injectable} from 'inversify';
 
-import {CITIES_COORDINATES, fillDTO} from '../../helpers/index.js';
+import {fillDTO} from '../../helpers/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {
-  BaseController, DocumentExistsMiddleware, HttpError,
-  HttpMethods, PrivateRouteMiddleware,
-  UploadFileMiddleware, UploadFilesMiddleware, ValidateDtoMiddleware,
-  ValidateObjectIdMiddleware
+  BaseController,
+  DocumentExistsMiddleware,
+  HttpError,
+  HttpMethods,
+  PrivateRouteMiddleware,
+  UploadFileMiddleware,
+  UploadFilesMiddleware, ValidateAuthorMiddleware,
+  ValidateDtoMiddleware,
+  ValidateObjectIdMiddleware,
 } from '../../libs/rest/index.js';
 import {Components} from '../../types/index.js';
 import {CommentService} from '../comment/index.js';
@@ -17,7 +22,6 @@ import {CommentRdo} from '../comment/rdo/comment.rdo.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';
 import {UpdateOfferDto} from './dto/update-offer.dto.js';
 import {OfferService} from './offer-service.interface.js';
-import {FullOfferRdo} from './rdo/full-offer.rdo.js';
 import {OfferRdo} from './rdo/offer.rdo.js';
 import {UploadPlaceImagesRdo} from './rdo/upload-place-images.rdo.js';
 import {UploadPreviewImageRdo} from './rdo/upload-preview-image.rdo.js';
@@ -36,7 +40,11 @@ export class OfferController extends BaseController {
 
     this.logger.info('Register routes for OfferController...');
 
-    this.addRoute({path: '/', method: HttpMethods.Get, handler: this.index});
+    this.addRoute({
+      path: '/',
+      method: HttpMethods.Get,
+      handler: this.index
+    });
 
     this.addRoute({
       path: '/',
@@ -45,6 +53,15 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateOfferDto)
+      ]
+    });
+
+    this.addRoute({
+      path: '/favorites',
+      method: HttpMethods.Get,
+      handler: this.findFavorites,
+      middlewares: [
+        new PrivateRouteMiddleware(),
       ]
     });
 
@@ -63,8 +80,10 @@ export class OfferController extends BaseController {
       method: HttpMethods.Delete,
       handler: this.delete,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+        new ValidateAuthorMiddleware(this.offerService, 'Offer', 'offerId')
       ]
     });
 
@@ -73,8 +92,10 @@ export class OfferController extends BaseController {
       method: HttpMethods.Patch,
       handler: this.update,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+        new ValidateAuthorMiddleware(this.offerService, 'Offer', 'offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto)
       ]
     });
@@ -112,10 +133,11 @@ export class OfferController extends BaseController {
     });
   }
 
-  public async index({tokenPayload}: Request, res: Response) {
+  public async index({tokenPayload, query}: Request, res: Response) {
+    const count = Number(query?.count) ?? undefined;
     const offers = tokenPayload
-      ? await this.offerService.find(undefined, tokenPayload.id)
-      : await this.offerService.find();
+      ? await this.offerService.find(count, tokenPayload.id)
+      : await this.offerService.find(count);
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
@@ -126,9 +148,7 @@ export class OfferController extends BaseController {
       ? await this.offerService.findById(offerId, tokenPayload.id)
       : await this.offerService.findById(offerId);
 
-    const offerForShow = {...offer, city: {name: offer!.city, cityCoordinates: CITIES_COORDINATES[offer!.city]}};
-
-    this.ok(res, fillDTO(FullOfferRdo, offerForShow));
+    this.ok(res, fillDTO(OfferRdo, offer));
   }
 
   public async create(
@@ -136,10 +156,9 @@ export class OfferController extends BaseController {
     res: Response
   ) {
     const result = await this.offerService.create({...body, authorId: tokenPayload.id });
-    const offer = await this.offerService.findById(result.id);
-    const createdOffer = {...offer, city: {name: offer!.city, cityCoordinates: CITIES_COORDINATES[offer!.city]}};
+    const createdOffer = await this.offerService.findById(result.id);
 
-    this.created(res, fillDTO(FullOfferRdo, createdOffer));
+    this.created(res, fillDTO(OfferRdo, createdOffer));
   }
 
   public async delete(
@@ -148,6 +167,7 @@ export class OfferController extends BaseController {
   ) {
     const {offerId} = params;
     const offer = await this.offerService.deleteById(offerId);
+    await this.commentService.deleteByOfferId(offerId);
 
     this.noContent(res, offer);
   }
@@ -157,9 +177,10 @@ export class OfferController extends BaseController {
     res: Response
   ){
     const {offerId} = params;
-    const offer = await this.offerService.updateById(offerId, body);
-    const updatedOffer = {...offer, city: {name: offer!.city, cityCoordinates: CITIES_COORDINATES[offer!.city]}};
-    this.ok(res, fillDTO(FullOfferRdo, updatedOffer));
+    await this.offerService.updateById(offerId, body);
+    const updatedOffer = await this.offerService.findById(offerId);
+
+    this.ok(res, fillDTO(OfferRdo, updatedOffer));
   }
 
   public async getComments({params}: Request<ParamOfferId>, res: Response) {
@@ -198,5 +219,11 @@ export class OfferController extends BaseController {
     await this.offerService.updateById(offerId, updateDto);
 
     this.created(res, fillDTO(UploadPlaceImagesRdo, updateDto));
+  }
+
+  public async findFavorites({tokenPayload}: Request, res: Response){
+    const favoriteOffers = await this.offerService.findFavorites(tokenPayload.id);
+
+    this.ok(res, fillDTO(OfferRdo, favoriteOffers));
   }
 }
