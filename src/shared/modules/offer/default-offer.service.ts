@@ -5,11 +5,11 @@ import {Types} from 'mongoose';
 
 import {Logger} from '../../libs/logger/index.js';
 import {HttpError} from '../../libs/rest/index.js';
-import {Components, SortType} from '../../types/index.js';
+import {Cities, Components, SortType} from '../../types/index.js';
 import {UserEntity} from '../user/index.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';
 import {UpdateOfferDto} from './dto/update-offer.dto.js';
-import {DEFAULT_OFFER_COUNT} from './offer.constant.js';
+import {DEFAULT_OFFER_COUNT, PREMIUM_OFFERS_COUNT} from './offer.constant.js';
 import {OfferEntity} from './offer.entity.js';
 import {OfferService} from './offer-service.interface.js';
 
@@ -31,7 +31,6 @@ export class DefaultOfferService implements OfferService {
 
   public async find(count?: number, authorId?: string): Promise<DocumentType<OfferEntity>[]> {
     const limit = count ?? DEFAULT_OFFER_COUNT;
-
     const user = await this.userModel.findById(authorId);
     const favoriteOffers = user?.favoriteOffers.map((offer) => offer.toString());
 
@@ -215,5 +214,78 @@ export class DefaultOfferService implements OfferService {
   public async isAuthor(userId: string, documentId: string) {
     const offer = await this.offerModel.findById(documentId);
     return offer?.authorId.toString() === userId;
+  }
+
+  public async findPremiumByCity(city: Cities, userId?: string): Promise<DocumentType<OfferEntity>[]> {
+    const user = await this.userModel.findById(userId);
+    const favoriteOffers = user?.favoriteOffers.map((offer) => offer.toString());
+
+    return await this.offerModel.aggregate([
+      {
+        $match: { city: city, isPremium: true }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'authorId',
+          foreignField: '_id',
+          as: 'authorId',
+        },
+      },
+      {
+        $unwind: {
+          path: '$authorId',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'comments',
+          localField: '_id',
+          foreignField: 'offerId',
+          as: 'comments',
+        },
+      },
+      {
+        $addFields: {
+          rating: {
+            $round:[{
+              $divide: [
+                {
+                  $reduce: {
+                    input: '$comments',
+                    initialValue: 0,
+                    in: { $add: ['$$value', '$$this.rating'] },
+                  },
+                },
+                {
+                  $cond: {
+                    if: { $ne: [{ $size: '$comments' }, 0] },
+                    then: { $size: '$comments' },
+                    else: 1,
+                  },
+                },
+              ],
+            }, 1]},
+          commentsCount: { $size: '$comments' },
+          id: { $toString: '$_id' },
+          isFavorite: {
+            $cond: {
+              if: { $in: [{$toString: '$_id'}, favoriteOffers ?? []] },
+              then: true,
+              else: false,
+            },
+          },
+        },
+      },
+      { $unset: 'comments', },
+      { $limit: PREMIUM_OFFERS_COUNT },
+      {
+        $sort: {
+          createdAt: SortType.Down
+        }
+      },
+    ])
+      .exec();
   }
 }
