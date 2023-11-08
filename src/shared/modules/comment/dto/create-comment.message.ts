@@ -1,4 +1,4 @@
-export const CREATE_COMMENT_VALIDATION_MESSAGES = {
+export const CreateCommentValidationMessages = {
   Description: {
     lengthField: 'Min description is 5 chars, max is 1024',
     invalidFormat: 'description is required'
