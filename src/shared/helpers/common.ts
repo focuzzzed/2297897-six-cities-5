@@ -2,6 +2,8 @@ import {ClassConstructor, plainToInstance} from 'class-transformer';
 import {ValidationError} from 'class-validator';
 
 import {ApplicationErrors, ValidationErrorField} from '../libs/rest/index.js';
+import {TokenPayload} from '../modules/auth/index.js';
+import {Cities} from '../types/index.js';
 
 export function generateRandomValue (min: number, max: number, numsAfterDigit = 0) {
   return Number((Math.random() * (max - min) + min).toFixed(numsAfterDigit));
@@ -51,4 +53,19 @@ export function reduceValidationErrors(errors: ValidationError[]): ValidationErr
 
 export function getFullServerPath(protocol: string, host: string, port: string): string {
   return `${protocol}://${host}:${port}`;
+}
+
+export function isTokenPayload(payload: unknown): payload is TokenPayload {
+  return (
+    (typeof payload === 'object' && payload !== null) &&
+    ('email' in payload && typeof payload.email === 'string') &&
+    ('name' in payload && typeof payload.name === 'string') &&
+    ('id' in payload && typeof payload.id === 'string')
+  );
+}
+
+export function isCity(value: unknown): asserts value is Cities {
+  if (value === null || value === undefined || typeof value !== 'string' || !(value in Cities)) {
+    throw new Error(`${value} is not available city`);
+  }
 }

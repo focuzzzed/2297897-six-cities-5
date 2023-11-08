@@ -39,7 +39,7 @@ export class VersionCommand implements Command {
     return this.name;
   }
 
-  public execute(..._parameters: string[]): void {
+  public execute(): void {
     try {
       const version = this.readVersion();
       console.info(version);

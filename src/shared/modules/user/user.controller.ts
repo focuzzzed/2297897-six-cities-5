@@ -44,12 +44,6 @@ export class UserController extends BaseController {
     this.logger.info('Register routes for UserController...');
 
     this.addRoute({
-      path: '/:email',
-      method: HttpMethods.Get,
-      handler: this.show,
-    });
-
-    this.addRoute({
       path: '/favorites',
       method: HttpMethods.Patch,
       handler: this.updateFavorites,
@@ -81,6 +75,13 @@ export class UserController extends BaseController {
         new PrivateRouteMiddleware(),
       ]
     });
+
+    this.addRoute({
+      path: '/:email',
+      method: HttpMethods.Get,
+      handler: this.show,
+    });
+
 
     this.addRoute({
       path: '/:userId',
@@ -210,6 +211,7 @@ export class UserController extends BaseController {
     }
 
     const user = await this.userService.findByEmail(email);
+
     if(!user){
       throw new HttpError(
         StatusCodes.NOT_FOUND,

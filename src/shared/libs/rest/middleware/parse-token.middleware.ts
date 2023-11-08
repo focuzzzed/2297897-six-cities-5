@@ -4,18 +4,9 @@ import {NextFunction, Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import {jwtVerify} from 'jose';
 
-import {TokenPayload} from '../../../modules/auth/index.js';
+import {isTokenPayload} from '../../../helpers/index.js';
 import {HttpError} from '../errors/index.js';
 import {Middleware} from './middleware.interface.js';
-
-function isTokenPayload(payload: unknown): payload is TokenPayload {
-  return (
-    (typeof payload === 'object' && payload !== null) &&
-    ('email' in payload && typeof payload.email === 'string') &&
-    ('name' in payload && typeof payload.name === 'string') &&
-    ('id' in payload && typeof payload.id === 'string')
-  );
-}
 
 export class ParseTokenMiddleware implements Middleware {
   constructor(private readonly jwtSecret: string) {}

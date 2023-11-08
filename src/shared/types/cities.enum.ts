@@ -9,8 +9,3 @@ export enum Cities {
 
 export type Coordinates = {latitude: number, longitude: number};
 
-export function isCity(value: unknown): asserts value is Cities {
-  if (value === null || value === undefined || typeof value !== 'string' || !(value in Cities)) {
-    throw new Error(`${value} is not available city`);
-  }
-}
