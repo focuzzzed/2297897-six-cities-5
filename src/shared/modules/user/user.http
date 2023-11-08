@@ -9,10 +9,11 @@ POST http://localhost:6000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "AnonUser",
-  "email": "anon@anonimous.com",
+  "name": "Bready",
+  "email": "butter@bread.com",
+  "avatarUrl": "",
   "type": "обычный",
-  "password": "vIsVendetta",
+  "password": "NotAT0ast",
   "favoriteOffers": []
 }
 
@@ -23,8 +24,8 @@ POST http://localhost:6000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "anon@anonimous.com",
-  "password": "vIsVendetta"
+  "email": "destroyer@hacker.com",
+  "password": "JustHackIt!"
 }
 
 ###
@@ -60,12 +61,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImJ1Z0Bkb250ZmVhdC5jb20iL
 ###
 
 ##Добавить предложение в избранное
-PUT http://localhost:6000/users/favorites
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdyZWVuQGdtYWlsLmNvbSIsIm5hbWUiOiJDbHV0Y2hTZWsiLCJpZCI6IjY1NDJhYWUwYzYyMDQyM2M0ZTJhZWU5YyIsImlhdCI6MTY5ODg2Nzk2MSwiZXhwIjoxNjk5MDQwNzYxfQ.945rMTz1V_KIw3k5Fl46jUbath0LIRkbNmPharwVlGc
+PATCH http://localhost:6000/users/favorites
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkwOTM0LCJleHAiOjE2OTk1NjM3MzR9.3VFVmxrHcjv3KP_Hp7A_aPD5pjhjA4qw0ZJ9D33SRgE
 Content-Type: application/json
 
 {
-  "offerId": "654278662c6f94b5eeac4bbf",
+  "offerId": "654aa4be3c4f976eb362d4c8",
   "isFavorite": true
 }
 

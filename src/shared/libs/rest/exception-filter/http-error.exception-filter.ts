@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from 'express';
-import {StatusCodes} from 'http-status-codes';
 import {inject, injectable} from 'inversify';
 import {Error} from 'mongoose';
 
@@ -26,7 +25,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     this.logger.error(error, `[HttpErrorException]: ${req.path} # ${error.message}`);
 
     res
-      .status(StatusCodes.BAD_REQUEST)
+      .status(error.httpStatusCode)
       .json(createErrorObject(ApplicationErrors.CommonError, error.message));
   }
 }

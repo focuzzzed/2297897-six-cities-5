@@ -46,10 +46,6 @@ export abstract class BaseController implements Controller {
     this.send(res, StatusCodes.CREATED, data);
   }
 
-  public notFound<T>(res: Response, data: T) {
-    this.send(res, StatusCodes.NOT_FOUND, data);
-  }
-
   public noContent<T>(res: Response, data: T) {
     this.send(res, StatusCodes.NO_CONTENT, data);
   }

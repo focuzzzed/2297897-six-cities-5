@@ -19,6 +19,7 @@ import {Components} from '../../types/index.js';
 import {AuthService} from '../auth/index.js';
 import {OfferService} from '../offer/index.js';
 import {CreateUserDto} from './dto/create-user.dto.js';
+import {FavoriteOfferDto} from './dto/favorite-offer.dto.js';
 import {LoginUserDto} from './dto/login-user.dto.js';
 import {UpdateUserDto} from './dto/update-user.dto.js';
 import {LoginUserRequest} from './login-user-request.type.js';
@@ -50,11 +51,11 @@ export class UserController extends BaseController {
 
     this.addRoute({
       path: '/favorites',
-      method: HttpMethods.Put,
+      method: HttpMethods.Patch,
       handler: this.updateFavorites,
       middlewares: [
         new PrivateRouteMiddleware(),
-        new ValidateDtoMiddleware(UpdateUserDto)
+        new ValidateDtoMiddleware(FavoriteOfferDto)
       ]
     });
 
@@ -133,9 +134,17 @@ export class UserController extends BaseController {
   }
 
   public async create(
-    {body}: CreateUserRequest,
+    {body, tokenPayload}: CreateUserRequest,
     res: Response
   ): Promise<void> {
+    if(tokenPayload){
+      throw new HttpError(
+        StatusCodes.FORBIDDEN,
+        'An authorized user cannot create a new one',
+        'UserController'
+      );
+    }
+
     const existsUser = await this.userService.findByEmail(body.email);
 
     if(existsUser) {

@@ -175,6 +175,11 @@ export class DefaultOfferService implements OfferService {
     return offer;
   }
 
+  public async findFavorites(authorId: string) {
+    const offers = await this.find(undefined, authorId);
+    return offers.filter((offer) => offer.isFavorite);
+  }
+
   public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findByIdAndDelete(offerId)
@@ -207,21 +212,8 @@ export class DefaultOfferService implements OfferService {
       }}).exec();
   }
 
-  public async findNew(count: number): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
-      .find()
-      .sort({ createdAt: SortType.Down })
-      .limit(count)
-      .populate('authorId')
-      .exec();
-  }
-
-  public async findPopular(count: number): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
-      .find()
-      .sort({ commentsCount: SortType.Down })
-      .limit(count)
-      .populate('authorId')
-      .exec();
+  public async isAuthor(userId: string, documentId: string) {
+    const offer = await this.offerModel.findById(documentId);
+    return offer?.authorId.toString() === userId;
   }
 }
