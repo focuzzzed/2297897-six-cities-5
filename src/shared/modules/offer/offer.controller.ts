@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import {inject, injectable} from 'inversify';
 
-import {fillDTO} from '../../helpers/index.js';
+import {fillDTO, isCity} from '../../helpers/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {
@@ -17,7 +17,7 @@ import {
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
 } from '../../libs/rest/index.js';
-import {Components, isCity} from '../../types/index.js';
+import {Components} from '../../types/index.js';
 import {CommentService} from '../comment/index.js';
 import {CommentRdo} from '../comment/rdo/comment.rdo.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';

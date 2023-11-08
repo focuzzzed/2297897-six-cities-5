@@ -45,13 +45,13 @@ Content-Type: application/json
 ###
 
 ##Показать предложение
-GET http://localhost:6000/offers/654beb9e18b2ca81a23470b6 HTTP/1.1
+GET http://localhost:6000/offers/654c0b7107d7cc18bc812fc8 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 
 ###
 
 ##Удалить предложение
-DELETE http://localhost:6000/offers/654beb9e18b2ca81a23470b6 HTTP/1.1
+DELETE http://localhost:6000/offers/654c0b7107d7cc18bc812fc8 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 
 ###
