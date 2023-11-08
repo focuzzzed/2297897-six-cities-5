@@ -45,13 +45,13 @@ Content-Type: application/json
 ###
 
 ##Показать предложение
-GET http://localhost:6000/offers/654ab0c4c1e580ff691bb0e5 HTTP/1.1
+GET http://localhost:6000/offers/654beb9e18b2ca81a23470b6 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 
 ###
 
 ##Удалить предложение
-DELETE http://localhost:6000/offers/654b5b079e0d7757ac041700 HTTP/1.1
+DELETE http://localhost:6000/offers/654beb9e18b2ca81a23470b6 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
 
 ###
@@ -128,6 +128,12 @@ Content-Type: image/png
 
 ##Получение списка избранных предложений пользователя
 GET http://localhost:6000/offers/favorites HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkwOTM0LCJleHAiOjE2OTk1NjM3MzR9.3VFVmxrHcjv3KP_Hp7A_aPD5pjhjA4qw0ZJ9D33SRgE
+
+###
+
+##Получение списка премиум предложений для города
+GET http://localhost:6000/offers/premium/Amsterdam HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkwOTM0LCJleHAiOjE2OTk1NjM3MzR9.3VFVmxrHcjv3KP_Hp7A_aPD5pjhjA4qw0ZJ9D33SRgE
 
 ###

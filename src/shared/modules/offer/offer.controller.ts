@@ -12,11 +12,12 @@ import {
   HttpMethods,
   PrivateRouteMiddleware,
   UploadFileMiddleware,
-  UploadFilesMiddleware, ValidateAuthorMiddleware,
+  UploadFilesMiddleware,
+  ValidateAuthorMiddleware,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
 } from '../../libs/rest/index.js';
-import {Components} from '../../types/index.js';
+import {Components, isCity} from '../../types/index.js';
 import {CommentService} from '../comment/index.js';
 import {CommentRdo} from '../comment/rdo/comment.rdo.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';
@@ -131,6 +132,12 @@ export class OfferController extends BaseController {
         new UploadFilesMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'placeImages'),
       ]
     });
+
+    this.addRoute({
+      path: '/premium/:city',
+      method: HttpMethods.Get,
+      handler: this.findPremiumByCity
+    });
   }
 
   public async index({tokenPayload, query}: Request, res: Response) {
@@ -225,5 +232,16 @@ export class OfferController extends BaseController {
     const favoriteOffers = await this.offerService.findFavorites(tokenPayload.id);
 
     this.ok(res, fillDTO(OfferRdo, favoriteOffers));
+  }
+
+  public async findPremiumByCity({params, tokenPayload}: Request, res: Response) {
+    const {city} = params;
+    isCity(city);
+
+    const premiumOffers = tokenPayload
+      ? await this.offerService.findPremiumByCity(city, tokenPayload.id)
+      : await this.offerService.findPremiumByCity(city);
+
+    this.ok(res, fillDTO(OfferRdo, premiumOffers));
   }
 }
