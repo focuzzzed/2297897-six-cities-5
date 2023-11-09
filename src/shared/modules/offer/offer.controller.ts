@@ -118,6 +118,8 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+        new ValidateAuthorMiddleware(this.offerService, 'Offer', 'offerId'),
         new UploadFileMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'previewImage'),
       ]
     });
@@ -129,6 +131,8 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+        new ValidateAuthorMiddleware(this.offerService, 'Offer', 'offerId'),
         new UploadFilesMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'placeImages'),
       ]
     });
@@ -141,7 +145,7 @@ export class OfferController extends BaseController {
   }
 
   public async index({tokenPayload, query}: Request, res: Response) {
-    const count = Number(query?.count) ?? undefined;
+    const count = query.count ? Number(query.count) : undefined;
     const offers = tokenPayload
       ? await this.offerService.find(count, tokenPayload.id)
       : await this.offerService.find(count);

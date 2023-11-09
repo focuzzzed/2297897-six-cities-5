@@ -18,6 +18,7 @@ import {
 import {Components} from '../../types/index.js';
 import {AuthService} from '../auth/index.js';
 import {OfferService} from '../offer/index.js';
+import {ParamOfferId} from '../offer/types/param-offerid.type.js';
 import {CreateUserDto} from './dto/create-user.dto.js';
 import {FavoriteOfferDto} from './dto/favorite-offer.dto.js';
 import {LoginUserDto} from './dto/login-user.dto.js';
@@ -44,11 +45,12 @@ export class UserController extends BaseController {
     this.logger.info('Register routes for UserController...');
 
     this.addRoute({
-      path: '/favorites',
+      path: '/favorites/:offerId',
       method: HttpMethods.Patch,
       handler: this.updateFavorites,
       middlewares: [
         new PrivateRouteMiddleware(),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
         new ValidateDtoMiddleware(FavoriteOfferDto)
       ]
     });
@@ -112,7 +114,7 @@ export class UserController extends BaseController {
     if(!user) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `User, with email: «${email}», not exists`,
+        `User, with email «${email}», not exists`,
         'UserController'
       );
     }
@@ -151,7 +153,7 @@ export class UserController extends BaseController {
     if(existsUser) {
       throw new HttpError(
         StatusCodes.CONFLICT,
-        `User, with email: «${body.email}», already exists`,
+        `User, with email «${body.email}», already exists`,
         'UserController'
       );
     }
@@ -199,38 +201,19 @@ export class UserController extends BaseController {
   }
 
   public async updateFavorites(
-    {body, tokenPayload: {id, email}}: Request,
+    {body, params, tokenPayload: {id, email}}: Request<ParamOfferId>,
     res: Response
   ) {
-    if (!(await this.offerService.exists(body.offerId))) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Offer with id ${body.offerId} not found`,
-        'UserController'
-      );
-    }
-
     const user = await this.userService.findByEmail(email);
-
-    if(!user){
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        'User undefined',
-        'UserController',
-      );
-    }
-
-    const favorites = new Set(user.favoriteOffers.map((offer) => offer.toString()));
+    const favorites = new Set(user!.favoriteOffers.map((offer) => offer.toString()));
 
     if(body.isFavorite){
-      favorites.add(body.offerId);
+      favorites.add(params.offerId);
     } else {
-      favorites.delete(body.offerId);
+      favorites.delete(params.offerId);
     }
 
-    await this.userService.updateById(id, {
-      favoriteOffers: [...favorites],
-    });
+    await this.userService.updateById(id, {favoriteOffers: [...favorites]});
     this.noContent(res, null);
   }
 }

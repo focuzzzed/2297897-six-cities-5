@@ -1,7 +1,8 @@
 import {ClassConstructor, plainToInstance} from 'class-transformer';
 import {ValidationError} from 'class-validator';
+import {StatusCodes} from 'http-status-codes';
 
-import {ApplicationErrors, ValidationErrorField} from '../libs/rest/index.js';
+import {ApplicationErrors, HttpError, ValidationErrorField} from '../libs/rest/index.js';
 import {TokenPayload} from '../modules/auth/index.js';
 import {Cities} from '../types/index.js';
 
@@ -66,6 +67,8 @@ export function isTokenPayload(payload: unknown): payload is TokenPayload {
 
 export function isCity(value: unknown): asserts value is Cities {
   if (value === null || value === undefined || typeof value !== 'string' || !(value in Cities)) {
-    throw new Error(`${value} is not available city`);
+    throw new HttpError(
+      StatusCodes.BAD_REQUEST,
+      `${value} is not correct city`);
   }
 }
