@@ -3,7 +3,7 @@ import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers, getIsFavoriteOffersLoading } from '../../store/site-data/selectors';
-import type { Offer } from '../../types/types';
+import type { Offer } from '../../types';
 
 const Favorites = (): JSX.Element => {
   const isFavoriteOffersLoading = useAppSelector(getIsFavoriteOffersLoading);

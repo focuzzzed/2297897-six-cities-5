@@ -1,4 +1,4 @@
-import { CityName } from '../../types/types';
+import { CityName } from '../../types';
 
 type CardListEmptyProps = {
   city: CityName

@@ -1,4 +1,4 @@
-import { Offer } from '../../types/types';
+import { Offer } from '../../types';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postFavorite, deleteFavorite } from '../../store/action';

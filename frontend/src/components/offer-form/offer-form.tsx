@@ -1,7 +1,7 @@
 import { FormEvent, useCallback, useState } from 'react';
 import Select from 'react-select';
 
-import { City, NewOffer, Offer } from '../../types/types';
+import { City, NewOffer, Offer } from '../../types';
 
 import LocationPicker from '../location-picker/location-picker';
 import { CITIES, CityLocation, GOODS, TYPES } from '../../const';

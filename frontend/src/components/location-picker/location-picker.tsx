@@ -1,7 +1,7 @@
 import { Icon, Marker } from 'leaflet';
 import { useRef, useEffect } from 'react';
 
-import type { City, Location } from '../../types/types';
+import type { City, Location } from '../../types';
 
 import { URL_MARKER_DEFAULT, ZOOM } from '../../const';
 import useMap from '../../hooks/useMap';

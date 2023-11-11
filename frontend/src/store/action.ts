@@ -1,7 +1,16 @@
 import type { History } from 'history';
 import type { AxiosInstance, AxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { UserAuth, User, Offer, Comment, CommentAuth, FavoriteAuth, UserRegister, NewOffer } from '../types/types';
+import type {
+  UserAuth,
+  User,
+  Offer,
+  Comment,
+  CommentAuth,
+  FavoriteAuth,
+  UserRegister,
+  NewOffer,
+} from '../types';
 import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { Token } from '../utils';
 
@@ -147,10 +156,7 @@ export const loginUser = createAsyncThunk<UserAuth['email'], UserAuth, { extra: 
 
 export const logoutUser = createAsyncThunk<void, undefined, { extra: Extra }>(
   Action.LOGOUT_USER,
-  async (_, { extra }) => {
-    const { api } = extra;
-    await api.delete(ApiRoute.Logout);
-
+  async () => {
     Token.drop();
   });
 

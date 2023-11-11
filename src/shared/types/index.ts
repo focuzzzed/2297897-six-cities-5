@@ -1,6 +1,7 @@
 export * from './cities.enum.js';
 export * from './components.enum.js';
 export * from './conveniences.enum.js';
+export * from './coordinates.type.js';
 export * from './document-exists.interface.js';
 export * from './is-document-author.interface.js';
 export * from './mock-server-data.types.js';

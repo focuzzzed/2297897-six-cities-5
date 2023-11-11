@@ -1,4 +1,4 @@
-import type { Comment } from '../../types/types';
+import type { Comment } from '../../types';
 
 import { formatDate, getStarsWidth } from '../../utils';
 

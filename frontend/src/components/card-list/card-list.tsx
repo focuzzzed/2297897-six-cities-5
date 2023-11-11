@@ -1,4 +1,4 @@
-import type { SortName } from '../../types/types';
+import type { SortName } from '../../types';
 
 import { useState } from 'react';
 

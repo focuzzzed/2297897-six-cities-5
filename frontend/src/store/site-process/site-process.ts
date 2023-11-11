@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { SiteProcess } from '../../types/state';
-import type { CityName, SortName } from '../../types/types';
+import type { SiteProcess } from '../../types';
+import type { CityName, SortName } from '../../types';
 import { CITIES, CityLocation, Sorting, StoreSlice } from '../../const';
 
 const initialState: SiteProcess = {

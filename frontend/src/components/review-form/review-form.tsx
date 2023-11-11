@@ -1,7 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react';
 import { Fragment, useState, useEffect } from 'react';
 
-import type { NewComment } from '../../types/types';
+import type { NewComment } from '../../types';
 import { STARS_COUNT, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, SubmitStatus } from '../../const';
 
 type ReviewFormProps = {

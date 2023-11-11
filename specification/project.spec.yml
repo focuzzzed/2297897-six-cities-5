@@ -284,7 +284,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: '#/components/schemas/previewOffer'
 
     post:
       tags:
@@ -347,7 +347,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: '#/components/schemas/previewOffer'
         '400':
           description: City is not correct.
           content:
@@ -383,6 +383,35 @@ paths:
                 $ref: '#/components/schemas/validationError'
         '404':
           description: Offer with the given id does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generalError'
+
+  /offers/favorites:
+    get:
+      tags:
+        - offers
+      summary: List of favorites offers.
+      description: Return list of favorites offers for authorized user.
+      parameters:
+        - in: header
+          name: x-token
+          schema:
+            type: string
+            required: true
+            description: JWT-Token
+      responses:
+        '200':
+          description: List of favorites offers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/previewOffer'
+        '401':
+          description: Unauthorized.
           content:
             application/json:
               schema:
@@ -848,7 +877,7 @@ components:
           format: float
           required: true
           example: 14049
-        amenities:
+        conveniences:
           type: array
           items:
             type: string
@@ -914,8 +943,8 @@ components:
           type: number
           format: float
           example: 14090
-        amenities:
-          $ref: '#/components/schemas/amenities'
+        conveniences:
+          $ref: '#/components/schemas/conveniences'
         location:
           $ref: '#/components/schemas/location'
         city:
@@ -971,8 +1000,8 @@ components:
           type: number
           format: float
           example: 100
-        amenities:
-          $ref: '#/components/schemas/amenities'
+        conveniences:
+          $ref: '#/components/schemas/conveniences'
         location:
           $ref: '#/components/schemas/location'
         commentAmount:
@@ -980,6 +1009,44 @@ components:
           example: 5
         author:
           $ref: '#/components/schemas/user'
+
+    previewOffer:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+        name:
+          type: string
+          example: Beautiful & luxurious studio at great location
+        postDate:
+          type: string
+          format: date-time
+          example: 2023-10-11T13:15:56.868Z
+        city:
+          $ref: '#/components/schemas/city'
+        previewImage:
+          type: string
+          example: static/image-preview.png
+        isPremium:
+          type: boolean
+          example: true
+        isFavorite:
+          type: boolean
+          example: true
+        rating:
+          type: number
+          format: float
+          example: 4.2
+        type:
+          $ref: '#/components/schemas/type'
+        price:
+          type: number
+          format: float
+          example: 100
+        commentAmount:
+          type: integer
+          example: 5
 
     createComment:
       type: object
@@ -1015,7 +1082,7 @@ components:
         author:
           $ref: '#/components/schemas/user'
 
-    amenities:
+    conveniences:
       type: array
       items:
         type: string

@@ -1,4 +1,4 @@
-import { NewOffer } from '../../types/types';
+import { NewOffer } from '../../types';
 import { CITIES, CityLocation } from '../../const';
 import OfferForm from '../../components/offer-form/offer-form';
 import { useAppDispatch } from '../../hooks';

@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import type { State } from '../../types/state';
-import type { Offer, Comment } from '../../types/types';
+import type { State } from '../../types';
+import type { Offer, Comment } from '../../types';
 import { Comparator, MAX_COMMENTS, StoreSlice, SubmitStatus } from '../../const';
 import { getCity, getSorting } from '../site-process/selectors';
 

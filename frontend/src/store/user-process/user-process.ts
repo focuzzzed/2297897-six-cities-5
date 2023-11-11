@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { UserProcess } from '../../types/state';
+import type { UserProcess } from '../../types';
 import { fetchUserStatus, loginUser, logoutUser } from '../action';
 import { AuthorizationStatus, StoreSlice } from '../../const';
 

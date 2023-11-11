@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import type { CityName } from '../../types/types';
+import type { CityName } from '../../types';
 
 type CityProps = {
     name: CityName,

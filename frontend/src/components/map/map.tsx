@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 
-import type { City, Location } from '../../types/types';
+import type { City, Location } from '../../types';
 
 import useMap from '../../hooks/useMap';
 import {

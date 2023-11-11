@@ -6,7 +6,7 @@ import OfferForm from '../../components/offer-form/offer-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { editOffer, fetchOffer } from '../../store/action';
 import { getIsOfferLoading, getOffer } from '../../store/site-data/selectors';
-import { Offer } from '../../types/types';
+import { Offer } from '../../types';
 
 const EditOffer = (): JSX.Element | null => {
   const params = useParams();

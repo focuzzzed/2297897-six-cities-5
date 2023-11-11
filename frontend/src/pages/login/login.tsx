@@ -1,7 +1,7 @@
 import type { FormEvent, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
-import type { CityName, UserAuth } from '../../types/types';
+import type { CityName, UserAuth } from '../../types';
 import { useAppDispatch } from '../../hooks';
 import { loginUser } from '../../store/action';
 import { getRandomElement } from '../../utils';

@@ -6,6 +6,3 @@ export enum Cities {
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf',
 }
-
-export type Coordinates = {latitude: number, longitude: number};
-

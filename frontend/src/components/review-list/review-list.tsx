@@ -1,5 +1,5 @@
 import { SubmitStatus } from '../../const';
-import type { Comment, NewComment } from '../../types/types';
+import type { Comment, NewComment } from '../../types';
 
 import ReviewForm from '../review-form/review-form';
 import Review from '../review/review';

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 
-import type { CityName } from '../../types/types';
+import type { CityName } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCity } from '../../store/site-process/site-process';
 import City from '../city/city';
