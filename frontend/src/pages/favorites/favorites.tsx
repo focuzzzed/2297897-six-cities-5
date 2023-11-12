@@ -45,7 +45,7 @@ const Favorites = (): JSX.Element => {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {groupedOffers.map((offer) => <Card key={offer.id} {...offer} classPrefix="favorites" isMini />)}
+                      {groupedOffers.map((offer) => <Card key={offer.id} {...offer} classPrefix="favorites" />)}
                     </div>
                   </li>
                 ))}

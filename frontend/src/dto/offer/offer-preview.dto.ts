@@ -18,8 +18,6 @@ export class OfferPreviewDto {
 
   public rating!: number;
 
-  public commentsCount!: number;
-
   public type!: PlacesTypes;
 
   public price!: number;

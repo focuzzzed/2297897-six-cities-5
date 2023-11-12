@@ -23,8 +23,6 @@ export class OfferDto {
 
   public rating!: number;
 
-  public commentsCount!: number;
-
   public type!: PlacesTypes;
 
   public roomsAmount!: number;

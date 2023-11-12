@@ -9,7 +9,6 @@ import Bookmark from '../bookmark/bookmark';
 type CardProps = OfferPreview & {
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
-  isMini?: boolean;
   classPrefix?: string;
 };
 
@@ -22,7 +21,6 @@ const Card = ({
   isFavorite,
   previewImage,
   type,
-  isMini = false,
   classPrefix = 'cities',
   onMouseEnter = () => void 0,
   onMouseLeave = () => void 0,

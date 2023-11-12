@@ -1,5 +1,5 @@
-import {CommentDto, OfferDto, OfferPreviewDto, UserDto} from '../dto';
-import {Comment, HouseTypes, Offer, OfferPreview, PlacesTypes, Type, User} from '../types';
+import {CommentDto, OfferDto, OfferPreviewDto,} from '../dto';
+import {Comment, HouseTypes, Offer, OfferPreview, PlacesTypes, Type} from '../types';
 import {CityLocation} from '../const';
 
 const adaptPlaceType = (type: PlacesTypes): Type => {
@@ -16,13 +16,6 @@ const adaptPlaceType = (type: PlacesTypes): Type => {
       throw new Error(`Unknown type ${type}`);
   }
 };
-
-export const adaptUserToClient = (user: UserDto): User => ({
-  name: user.name,
-  avatarUrl: user.avatarUrl,
-  type: user.type,
-  email: user.email,
-});
 
 export const adaptOfferToClient = (offer: OfferDto): Offer => ({
   id: offer.id,
