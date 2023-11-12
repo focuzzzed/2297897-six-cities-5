@@ -1,4 +1,5 @@
 import {Cities, Conveniences, Offer, PlacesTypes, UserTypes} from '../types/index.js';
+import {getBooleanFromString} from './common.js';
 
 export function createOffer(offerData: string): Offer {
   const [
@@ -17,6 +18,7 @@ export function createOffer(offerData: string): Offer {
     avatarUrl,
     password,
     type: userType as UserTypes,
+    favoriteOffers: []
   };
 
   return {
@@ -26,8 +28,8 @@ export function createOffer(offerData: string): Offer {
     city: city as Cities,
     previewImage,
     placeImages: placeImages.split(';'),
-    isPremium: Boolean(isPremium),
-    isFavorite: Boolean(isFavorite),
+    isPremium: getBooleanFromString(isPremium),
+    isFavorite: getBooleanFromString(isFavorite),
     rating: Number(rating),
     type: type as PlacesTypes,
     roomsAmount: Number(roomsAmount),

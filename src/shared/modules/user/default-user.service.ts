@@ -21,7 +21,12 @@ export class DefaultUserService implements UserService {
   }
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
-    const user = new UserEntity({...dto, avatarUrl: dto.avatarUrl ? dto.avatarUrl : DEFAULT_AVATAR_FILE_NAME});
+    const user = new UserEntity({
+      ...dto,
+      avatarUrl: dto.avatarUrl
+        ? dto.avatarUrl :
+        DEFAULT_AVATAR_FILE_NAME
+    });
     user.setPassword(dto.password, salt);
 
     const result = await this.userModel.create(user);

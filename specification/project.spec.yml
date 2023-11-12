@@ -156,12 +156,6 @@ paths:
                     type: string
                     example:
                       http://localhost:6000/upload/3ba8e256-aec1-4724-9208-c3a3e0d28a5e.png
-        '401':
-          description: Unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/generalError'
 
   /users/{userId}:
     patch:

@@ -72,3 +72,11 @@ export function isCity(value: unknown): asserts value is Cities {
       `${value} is not correct city`);
   }
 }
+
+export function getRandomBoolean(percentOfTrue: number): boolean {
+  return Math.random() < percentOfTrue;
+}
+
+export function getBooleanFromString(value: string): boolean {
+  return Boolean(value === 'true');
+}

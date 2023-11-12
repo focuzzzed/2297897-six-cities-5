@@ -48,7 +48,7 @@ export enum ApiRoute {
   Avatar = '/avatar',
   Comments = '/comments',
   Favorite = 'offers/favorites',
-  Premium = '/premium',
+  Premium = 'offers/premium',
 }
 
 export enum AuthorizationStatus {

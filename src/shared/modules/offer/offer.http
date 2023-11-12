@@ -1,7 +1,6 @@
 #Предложения
 ## Получить список всех предложений / или точное количество при указании query параметра
-GET http://localhost:6000/offers?count=3 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkwOTM0LCJleHAiOjE2OTk1NjM3MzR9.3VFVmxrHcjv3KP_Hp7A_aPD5pjhjA4qw0ZJ9D33SRgE
+GET http://localhost:4000/offers?count=150 HTTP/1.1
 
 ###
 

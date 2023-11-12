@@ -9,10 +9,18 @@ import type {
   CommentAuth,
   FavoriteAuth,
   UserRegister,
-  NewOffer,
+  NewOffer, OfferPreview,
 } from '../types';
 import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { Token } from '../utils';
+import {CommentDto, OfferDto, OfferPreviewDto} from '../dto';
+import {
+  adaptCommentsToClient,
+  adaptCommentToClient,
+  adaptOffersToClient,
+  adaptOfferToClient
+} from '../utils/adapters-to-client';
+import {adaptCreateCommentToServer} from '../utils/adapters-to-server';
 
 type Extra = {
   api: AxiosInstance;
@@ -37,13 +45,13 @@ export const Action = {
   REGISTER_USER: 'user/register',
 };
 
-export const fetchOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }>(
+export const fetchOffers = createAsyncThunk<OfferPreview[], undefined, { extra: Extra }>(
   Action.FETCH_OFFERS,
   async (_, { extra }) => {
     const { api } = extra;
-    const { data } = await api.get<Offer[]>(ApiRoute.Offers);
+    const { data } = await api.get<OfferPreviewDto[]>(ApiRoute.Offers);
 
-    return data;
+    return adaptOffersToClient(data);
   });
 
 export const fetchFavoriteOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }>(
@@ -61,9 +69,9 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], { extra: Extra }>
     const { api, history } = extra;
 
     try {
-      const { data } = await api.get<Offer>(`${ApiRoute.Offers}/${id}`);
+      const { data } = await api.get<OfferDto>(`${ApiRoute.Offers}/${id}`);
 
-      return data;
+      return adaptOfferToClient(data);
     } catch (error) {
       const axiosError = error as AxiosError;
 
@@ -103,22 +111,22 @@ export const deleteOffer = createAsyncThunk<void, string, { extra: Extra }>(
     history.push(AppRoute.Root);
   });
 
-export const fetchPremiumOffers = createAsyncThunk<Offer[], string, { extra: Extra }>(
+export const fetchPremiumOffers = createAsyncThunk<OfferPreview[], string, { extra: Extra }>(
   Action.FETCH_PREMIUM_OFFERS,
   async (cityName, { extra }) => {
     const { api } = extra;
-    const { data } = await api.get<Offer[]>(`${ApiRoute.Premium}?city=${cityName}`);
+    const { data } = await api.get<OfferPreviewDto[]>(`${ApiRoute.Premium}/${cityName}`);
 
-    return data;
+    return adaptOffersToClient(data);
   });
 
 export const fetchComments = createAsyncThunk<Comment[], Offer['id'], { extra: Extra }>(
   Action.FETCH_COMMENTS,
   async (id, { extra }) => {
     const { api } = extra;
-    const { data } = await api.get<Comment[]>(`${ApiRoute.Offers}/${id}${ApiRoute.Comments}`);
+    const { data } = await api.get<CommentDto[]>(`${ApiRoute.Offers}/${id}${ApiRoute.Comments}`);
 
-    return data;
+    return adaptCommentsToClient(data);
   });
 
 export const fetchUserStatus = createAsyncThunk<UserAuth['email'], undefined, { extra: Extra }>(
@@ -173,7 +181,7 @@ export const registerUser = createAsyncThunk<void, UserRegister, { extra: Extra 
     if (avatar) {
       const payload = new FormData();
       payload.append('avatar', avatar);
-      await api.post(`/${data.id}${ApiRoute.Avatar}`, payload, {
+      await api.patch(`users/${data.id}${ApiRoute.Avatar}`, payload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     }
@@ -185,9 +193,9 @@ export const postComment = createAsyncThunk<Comment, CommentAuth, { extra: Extra
   Action.POST_COMMENT,
   async ({ id, comment, rating }, { extra }) => {
     const { api } = extra;
-    const { data } = await api.post<Comment>(`${ApiRoute.Offers}/${id}${ApiRoute.Comments}`, { comment, rating });
+    const { data } = await api.post<CommentDto>(`${ApiRoute.Comments}/${id}`, adaptCreateCommentToServer({comment, rating, id }));
 
-    return data;
+    return adaptCommentToClient(data);
   });
 
 export const postFavorite = createAsyncThunk<

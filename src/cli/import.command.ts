@@ -46,7 +46,6 @@ export class ImportCommand implements Command {
   private async saveOffer(offer: Offer) {
     const user = await this.userService.findOrCreate({
       ...offer.author,
-      favoriteOffers: [],
       password: DEFAULT_USER_PASSWORD
     }, this.salt);
 

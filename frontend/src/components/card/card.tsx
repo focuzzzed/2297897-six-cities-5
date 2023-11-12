@@ -1,12 +1,12 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import type { Offer } from '../../types';
+import type {OfferPreview} from '../../types';
 import { AppRoute } from '../../const';
 import { capitalize, getStarsWidth } from '../../utils';
 import Bookmark from '../bookmark/bookmark';
 
-type CardProps = Offer & {
+type CardProps = OfferPreview & {
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
   isMini?: boolean;
@@ -47,8 +47,7 @@ const Card = ({
           <img
             className="place-card__image"
             src={previewImage}
-            width={isMini ? 150 : 260}
-            height={isMini ? 110 : 200}
+            style={{ width: '100%', height: '250px', objectFit: 'cover' }}
             alt={title}
           />
         </Link>

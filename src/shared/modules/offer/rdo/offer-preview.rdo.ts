@@ -1,6 +1,6 @@
 import {Expose} from 'class-transformer';
 
-import {Cities, PlacesTypes} from '../../../types/index.js';
+import {Cities, Coordinates, PlacesTypes} from '../../../types/index.js';
 
 export class OfferPreviewRdo {
   @Expose()
@@ -35,4 +35,7 @@ export class OfferPreviewRdo {
 
   @Expose()
   public price: number;
+
+  @Expose()
+  public location: Coordinates;
 }

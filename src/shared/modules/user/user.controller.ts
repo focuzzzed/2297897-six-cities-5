@@ -100,7 +100,6 @@ export class UserController extends BaseController {
       method: HttpMethods.Patch,
       handler: this.uploadAvatar,
       middlewares: [
-        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('userId'),
         new DocumentExistsMiddleware(this.userService, 'User', 'userId'),
         new UploadFileMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'avatar'),
