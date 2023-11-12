@@ -36,11 +36,6 @@ export class CreateOfferDto {
   @IsBoolean({message: CreateOfferValidationMessages.IsFavorite.invalidFormat})
   public isFavorite: boolean;
 
-  @IsInt({message: CreateOfferValidationMessages.Rating.invalidFormat})
-  @Min(OFFER_CONSTANT_VALUES.Rating.minValue, {message: CreateOfferValidationMessages.Rating.minValue})
-  @Max(OFFER_CONSTANT_VALUES.Rating.maxValue, {message: CreateOfferValidationMessages.Rating.maxValue})
-  public rating: number;
-
   @IsEnum(PlacesTypes, {message: CreateOfferValidationMessages.Type.invalid})
   public type: PlacesTypes;
 

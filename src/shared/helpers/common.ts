@@ -80,3 +80,7 @@ export function getRandomBoolean(percentOfTrue: number): boolean {
 export function getBooleanFromString(value: string): boolean {
   return Boolean(value === 'true');
 }
+
+export function isExternalLink(link: string): boolean {
+  return link.startsWith('http://') || link.startsWith('https://');
+}

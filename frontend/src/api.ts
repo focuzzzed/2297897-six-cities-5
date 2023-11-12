@@ -24,7 +24,7 @@ export const createAPI = (): AxiosInstance => {
     }
   );
 
-  api.interceptors.response.use( //Вход здесь
+  api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
       toast.dismiss();

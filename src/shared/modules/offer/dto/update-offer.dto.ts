@@ -1,7 +1,7 @@
 import {Type} from 'class-transformer';
 import {
   ArrayMaxSize, ArrayMinSize, ArrayNotEmpty,
-  IsArray, IsBoolean, IsDateString, IsEnum,
+  IsArray, IsBoolean, IsEnum,
   IsInt, IsOptional, Length, Max, MaxLength, Min,
   ValidateNested
 } from 'class-validator';
@@ -19,10 +19,6 @@ export class UpdateOfferDto {
   @IsOptional()
   @Length(OFFER_CONSTANT_VALUES.Description.minLength, OFFER_CONSTANT_VALUES.Description.maxLength, {message: CreateOfferValidationMessages.Description.lengthField})
   public description?: string;
-
-  @IsOptional()
-  @IsDateString({}, {message: CreateOfferValidationMessages.PostDate.invalidFormat})
-  public postDate?: string;
 
   @IsOptional()
   @IsEnum(Cities, {message: CreateOfferValidationMessages.City.invalid})

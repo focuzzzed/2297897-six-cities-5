@@ -6,8 +6,6 @@ export class UpdateOfferDto {
 
   public description?: string;
 
-  public postDate?: string;
-
   public city?: Cities;
 
   public previewImage?: string;
@@ -17,8 +15,6 @@ export class UpdateOfferDto {
   public isPremium?: boolean;
 
   public isFavorite?: boolean;
-
-  public rating?: number;
 
   public type?: PlacesTypes;
 

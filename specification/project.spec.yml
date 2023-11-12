@@ -203,7 +203,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/generalError'
 
-  /users/favorites/{offerId}:
+  /users/favorite/{offerId}:
     patch:
       tags:
         - users
@@ -230,8 +230,12 @@ paths:
               $ref: '#/components/schemas/favoriteOffer'
         required: true
       responses:
-          '204':
-            description: Offer favorite status is updated
+          '200':
+            description: Offer favorite status is updated. Updated offer.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/offer'
           '400':
             description: Some of the provided information is not correct.
             content:

@@ -44,8 +44,7 @@ Content-Type: application/json
 ###
 
 ##Показать предложение
-GET http://localhost:6000/offers/654aa4be3c4f976eb362d4ae HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFub25AYW5vbmltb3VzLmNvbSIsIm5hbWUiOiJBbm9uVXNlciIsImlkIjoiNjU0YWE1YzNjNDBkYTk1NTk5ZjRhM2M4IiwiaWF0IjoxNjk5MzkzNTMwLCJleHAiOjE2OTk1NjYzMzB9.0oRC4cVF-68Kb0hnPE6ZsPouUQTCkW0TEwXDN6dKT_g
+GET http://localhost:4000/offers/655141283bde15af9abe4e87 HTTP/1.1
 
 ###
 

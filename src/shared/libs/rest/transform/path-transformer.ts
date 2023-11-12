@@ -1,7 +1,7 @@
 import {inject, injectable} from 'inversify';
 
 import {STATIC_ROUTES} from '../../../../rest/index.js';
-import {getFullServerPath} from '../../../helpers/index.js';
+import {getFullServerPath, isExternalLink} from '../../../helpers/index.js';
 import {Components} from '../../../types/index.js';
 import {Config, RestSchema} from '../../config/index.js';
 import {Logger} from '../../logger/index.js';
@@ -58,13 +58,15 @@ export class PathTransformer {
           }
 
           if (this.isStaticProperty(key)) {
-            if (typeof value === 'string'){
+            if (typeof value === 'string' && !isExternalLink(value)){
               current[key] = this.transform(value);
             }
 
             if (Array.isArray(value)) {
               current[key] = value.map(
-                (currentImage) => typeof currentImage === 'string' ? this.transform(currentImage) : currentImage
+                (currentImage) => typeof currentImage === 'string' && !isExternalLink(currentImage)
+                  ? this.transform(currentImage)
+                  : currentImage
               );
             }
           }

@@ -1,17 +1,17 @@
 import {CommentDto, OfferDto, OfferPreviewDto, UserDto} from '../dto';
-import {Comment, Offer, OfferPreview, PlacesTypes, Type, User} from '../types';
+import {Comment, HouseTypes, Offer, OfferPreview, PlacesTypes, Type, User} from '../types';
 import {CityLocation} from '../const';
 
 const adaptPlaceType = (type: PlacesTypes): Type => {
   switch (type){
     case PlacesTypes.Apartment:
-      return 'apartment';
+      return HouseTypes.Apartment;
     case PlacesTypes.House:
-      return 'house';
+      return HouseTypes.Room;
     case PlacesTypes.Room:
-      return 'room';
+      return HouseTypes.Room;
     case PlacesTypes.Hotel:
-      return 'hotel';
+      return HouseTypes.Hotel;
     default:
       throw new Error(`Unknown type ${type}`);
   }

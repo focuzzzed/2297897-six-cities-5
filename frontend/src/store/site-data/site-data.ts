@@ -78,10 +78,10 @@ export const siteData = createSlice({
         state.commentStatus = SubmitStatus.Rejected;
       })
       .addCase(postFavorite.fulfilled, (state, action) => {
-        const updatedOffer = action.payload;
+        const updatedOffer = {...action.payload, isFavorite: true};
         state.offers = state.offers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
         state.premiumOffers = state.premiumOffers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
-        state.favoriteOffers = state.favoriteOffers.concat(updatedOffer);
+        state.favoriteOffers = [...state.favoriteOffers, updatedOffer];
 
         if (state.offer && state.offer.id === updatedOffer.id) {
           state.offer = updatedOffer;

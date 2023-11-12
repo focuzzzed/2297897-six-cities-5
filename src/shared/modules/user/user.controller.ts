@@ -18,6 +18,7 @@ import {
 import {Components} from '../../types/index.js';
 import {AuthService} from '../auth/index.js';
 import {OfferService} from '../offer/index.js';
+import {OfferRdo} from '../offer/rdo/offer.rdo.js';
 import {ParamOfferId} from '../offer/types/param-offerid.type.js';
 import {CreateUserDto} from './dto/create-user.dto.js';
 import {FavoriteOfferDto} from './dto/favorite-offer.dto.js';
@@ -45,7 +46,7 @@ export class UserController extends BaseController {
     this.logger.info('Register routes for UserController...');
 
     this.addRoute({
-      path: '/favorites/:offerId',
+      path: '/favorite/:offerId',
       method: HttpMethods.Patch,
       handler: this.updateFavorites,
       middlewares: [
@@ -213,6 +214,8 @@ export class UserController extends BaseController {
     }
 
     await this.userService.updateById(id, {favoriteOffers: [...favorites]});
-    this.noContent(res, null);
+    const updatedFavoriteOffer = await this.offerService.findById(params.offerId);
+
+    this.ok(res, fillDTO(OfferRdo, updatedFavoriteOffer));
   }
 }

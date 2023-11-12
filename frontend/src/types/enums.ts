@@ -23,3 +23,10 @@ export enum PlacesTypes {
   Room = 'Room',
   Hotel = 'Hotel',
 }
+
+export enum HouseTypes {
+  Apartment = 'apartment',
+  House = 'house',
+  Room = 'room',
+  Hotel = 'hotel',
+}

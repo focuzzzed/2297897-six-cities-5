@@ -9,7 +9,7 @@ import type {
   CommentAuth,
   FavoriteAuth,
   UserRegister,
-  NewOffer, OfferPreview,
+  OfferPreview, NewOffer,
 } from '../types';
 import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { Token } from '../utils';
@@ -20,7 +20,12 @@ import {
   adaptOffersToClient,
   adaptOfferToClient
 } from '../utils/adapters-to-client';
-import {adaptCreateCommentToServer} from '../utils/adapters-to-server';
+import {
+  adaptCommentAuthToServer,
+  adaptEditOfferToServer,
+  adaptNewOfferToServer,
+  adaptPostFavoriteToServer
+} from '../utils/adapters-to-server';
 
 type Extra = {
   api: AxiosInstance;
@@ -87,20 +92,20 @@ export const postOffer = createAsyncThunk<Offer, NewOffer, { extra: Extra }>(
   Action.POST_OFFER,
   async (newOffer, { extra }) => {
     const { api, history } = extra;
-    const { data } = await api.post<Offer>(ApiRoute.Offers, newOffer);
+    const { data } = await api.post<OfferDto>(ApiRoute.Offers, adaptNewOfferToServer(newOffer));
     history.push(`${AppRoute.Property}/${data.id}`);
 
-    return data;
+    return adaptOfferToClient(data);
   });
 
 export const editOffer = createAsyncThunk<Offer, Offer, { extra: Extra }>(
   Action.EDIT_OFFER,
   async (offer, { extra }) => {
     const { api, history } = extra;
-    const { data } = await api.patch<Offer>(`${ApiRoute.Offers}/${offer.id}`, offer);
+    const { data } = await api.patch<OfferDto>(`${ApiRoute.Offers}/${offer.id}`, adaptEditOfferToServer(offer));
     history.push(`${AppRoute.Property}/${data.id}`);
 
-    return data;
+    return adaptOfferToClient(data);
   });
 
 export const deleteOffer = createAsyncThunk<void, string, { extra: Extra }>(
@@ -178,14 +183,19 @@ export const registerUser = createAsyncThunk<void, UserRegister, { extra: Extra 
       name,
       type,
     });
-    if (avatar) {
-      const payload = new FormData();
-      payload.append('avatar', avatar);
-      await api.patch(`users/${data.id}${ApiRoute.Avatar}`, payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+    try {
+      if (avatar) {
+        const payload = new FormData();
+        payload.append('avatar', avatar);
+        await api.patch(`users/${data.id}${ApiRoute.Avatar}`, payload, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+      }
+      history.push(AppRoute.Login);
+    } catch {
+      history.push(AppRoute.Login);
     }
-    history.push(AppRoute.Login);
+
   });
 
 
@@ -193,7 +203,7 @@ export const postComment = createAsyncThunk<Comment, CommentAuth, { extra: Extra
   Action.POST_COMMENT,
   async ({ id, comment, rating }, { extra }) => {
     const { api } = extra;
-    const { data } = await api.post<CommentDto>(`${ApiRoute.Comments}/${id}`, adaptCreateCommentToServer({comment, rating, id }));
+    const { data } = await api.post<CommentDto>(`${ApiRoute.Comments}/${id}`, adaptCommentAuthToServer({comment, rating, id }));
 
     return adaptCommentToClient(data);
   });
@@ -206,11 +216,12 @@ export const postFavorite = createAsyncThunk<
   const { api, history } = extra;
 
   try {
-    const { data } = await api.post<Offer>(
-      `${ApiRoute.Favorite}/${id}`
+    const {data} = await api.patch<OfferDto>(
+      `${ApiRoute.UpdateFavorite}/${id}`,
+      adaptPostFavoriteToServer(true)
     );
 
-    return data;
+    return adaptOfferToClient(data);
   } catch (error) {
     const axiosError = error as AxiosError;
 
@@ -230,11 +241,12 @@ export const deleteFavorite = createAsyncThunk<
   const { api, history } = extra;
 
   try {
-    const { data } = await api.delete<Offer>(
-      `${ApiRoute.Favorite}/${id}`
+    const {data} = await api.patch<OfferDto>(
+      `${ApiRoute.UpdateFavorite}/${id}`,
+      adaptPostFavoriteToServer(false)
     );
 
-    return data;
+    return adaptOfferToClient(data);
   } catch (error) {
     const axiosError = error as AxiosError;
 

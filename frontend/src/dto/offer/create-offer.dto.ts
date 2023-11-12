@@ -18,8 +18,6 @@ export class CreateOfferDto {
 
   public isFavorite!: boolean;
 
-  public rating!: number;
-
   public type!: PlacesTypes;
 
   public roomsAmount!: number;
